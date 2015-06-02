@@ -20,7 +20,7 @@ import org.apache.hadoop.fs.Path;
 public class HelloHdfs {
 
     public static final String theFilename = "hello.txt";
-    public static final String message = "Hello, world!\n";
+    public static final String message = "Hello HDFS world!\n";
 
     public void WriteFile() {
         Configuration conf = new Configuration();
