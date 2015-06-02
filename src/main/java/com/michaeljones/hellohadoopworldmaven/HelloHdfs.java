@@ -29,20 +29,7 @@ public class HelloHdfs {
         // hdfs-site instead of core-default (which doesn't exist on my 2.7 install.
         Configuration hadoopConfig = new Configuration();
 
-        try {
-            // FIX for java.io.IOException: "hadoop No FileSystem for scheme: hdfs".
-            // Maven or its dependencies didn't do a perfect job and I had to add
-            // a dependency for the hadoop-hdf jar in the POM to get the following
-            // to compile.
-            // The following lines came from: http://stackoverflow.com/questions/17265002/hadoop-no-filesystem-for-scheme-file
-            // It is possible that adding the equivalent to core-site.xml will work too - need to try that.
-            hadoopConfig.set("fs.hdfs.impl",
-                    org.apache.hadoop.hdfs.DistributedFileSystem.class.getName()
-            );
-            hadoopConfig.set("fs.file.impl",
-                    org.apache.hadoop.fs.LocalFileSystem.class.getName()
-            );
-            
+        try {            
             FileSystem fs = FileSystem.get(hadoopConfig);
 
             Path filenamePath = new Path(theFilename);
