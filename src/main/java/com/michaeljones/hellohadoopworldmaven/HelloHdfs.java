@@ -24,6 +24,9 @@ public class HelloHdfs {
     public static final String message = "Hello HDFS world!\n";
 
     public void WriteFile() {
+        // The HDFS API documentation for org.apache.hadoop.conf.Configuration told
+        // me that it needs to load core-site.xml and core-default.xml - I added
+        // hdfs-site instead of core-default (which doesn't exist on my 2.7 install.
         Configuration hadoopConfig = new Configuration();
 
         try {
