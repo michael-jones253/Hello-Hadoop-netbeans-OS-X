@@ -8,6 +8,7 @@ package com.michaeljones.hellohadoopworldmaven;
 import java.io.IOException;
 
 import org.apache.hadoop.conf.Configuration;
+// import org.apache.hadoop.hdfs.DistributedFileSystem;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FSDataOutputStream;
@@ -23,10 +24,23 @@ public class HelloHdfs {
     public static final String message = "Hello HDFS world!\n";
 
     public void WriteFile() {
-        Configuration conf = new Configuration();
+        Configuration hadoopConfig = new Configuration();
 
         try {
-            FileSystem fs = FileSystem.get(conf);
+            // FIX for java.io.IOException: "hadoop No FileSystem for scheme: hdfs".
+            // Maven or its dependencies didn't do a perfect job and I had to add
+            // a dependency for the hadoop-hdf jar in the POM to get the following
+            // to compile.
+            // The following lines came from: http://stackoverflow.com/questions/17265002/hadoop-no-filesystem-for-scheme-file
+            // It is possible that adding the equivalent to core-site.xml will work too - need to try that.
+            hadoopConfig.set("fs.hdfs.impl",
+                    org.apache.hadoop.hdfs.DistributedFileSystem.class.getName()
+            );
+            hadoopConfig.set("fs.file.impl",
+                    org.apache.hadoop.fs.LocalFileSystem.class.getName()
+            );
+            
+            FileSystem fs = FileSystem.get(hadoopConfig);
 
             Path filenamePath = new Path(theFilename);
 
