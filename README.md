@@ -12,8 +12,9 @@ The Apache Hadoop instructions for building and running java programs are via th
 Hadoop is designed to work with a number of different topologies, directory locations, levels of replication, simulated environments etc. so as we would expect nothing will work unless the configuration is right.
 
 The things that are needed to run with the HDFS from the IDE:
+
 1. HADOOP_HOME environment variable project run property.
-2. Duplicate hadoop configuration in the classpath. The above environment variable does not pick up the hadoop configuration from its usual place. Yahoo suggests running from the command line only with the hadoop script. The Apache HDFS API documention says that configuration is looked for in the classpath.
+2. Duplicate hadoop configuration in the classpath. The above environment variable does not pick up the hadoop configuration from its usual place. Yahoo suggests running from the command line only with the hadoop script. The Apache HDFS API documention says that configuration is looked for in the classpath, so I took this approach.
 3. The correct Maven dependencies. If not all the jar depenencies are there the program may build and run, but it won't talk to the HDFS if it doesn't load the HDFS jars.
 
 I think that the setup of this project would probably work on Linux too.
