@@ -5,6 +5,10 @@
  */
 package com.michaeljones.hellohadoopworldmaven;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author michaeljones
@@ -15,10 +19,12 @@ public class HelloHadoopWorld {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        
-        HelloHdfs hdfs = new HelloHdfs();
-        hdfs.WriteFile();
+        try {
+            HelloHdfs hdfs = new HelloHdfs();
+            hdfs.writeFile();
+        } catch (IOException ex) {
+            Logger.getLogger(HelloHadoopWorld.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
