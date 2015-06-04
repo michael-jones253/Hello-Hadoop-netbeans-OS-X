@@ -63,7 +63,7 @@ public class HelloHdfs {
         return hdfsIsOnline;
     }
 
-    public void WriteFile() {
+    public void writeFile() throws IOException {
 
         try {            
             Path filenamePath = new Path(theFilename);
@@ -83,25 +83,29 @@ public class HelloHdfs {
 
             in.close();
         } catch (IOException ioe) {
-            LOGGER.log(Level.SEVERE, "IOException during operation.", ioe);
-            System.exit(1);
+            LOGGER.log(Level.SEVERE, "IOException during writeFile.", ioe);
+            throw ioe;
         }
     }
     
-    public void DumpConfig() {
+    public boolean checkForDeprecatedConfig(boolean dumpAll) {
 
+        boolean hasDeprecation = false;
         Iterator<Map.Entry<String, String>> iterator = hadoopConfig.iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, String> entry = iterator.next();
             String key = entry.getKey();
             String value = entry.getValue();
-            String isDeprecatedWarning = "";
             boolean deprecated = Configuration.isDeprecated(key);
             if (deprecated) {
-                isDeprecatedWarning = " Deprecated";
+                hasDeprecation = true;
+                System.out.println("Key: " + key + "Value: " + value + " DEPRECATED.");
+            }            
+            else if (dumpAll) {
+                System.out.println("Key: " + key + "Value: " + value);
             }
-            
-            System.out.println("Key: " + key + "Value: " + value + isDeprecatedWarning);            
         }
+    
+        return hasDeprecation;
     }
 }

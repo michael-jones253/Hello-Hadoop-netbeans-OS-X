@@ -1,0 +1,2 @@
+# Fix this up to the prefix of your installation.
+export MJ_PREFIX=/opt/local/hadoop-2.7.0

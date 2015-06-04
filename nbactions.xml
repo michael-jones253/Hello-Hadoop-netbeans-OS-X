@@ -13,7 +13,6 @@
                 <exec.args>-classpath %classpath com.michaeljones.hellohadoopworldmaven.HelloHadoopWorld</exec.args>
                 <exec.executable>java</exec.executable>
                 <Env.HADOOP_HOME>/opt/local/hadoop-2.7.0</Env.HADOOP_HOME>
-                <Env.HADOOP_PREFIX>/opt/local/hadoop-2.7.0</Env.HADOOP_PREFIX>                
             </properties>
         </action>
         <action>
@@ -45,6 +44,18 @@
                 <exec.args>-classpath %classpath com.michaeljones.hellohadoopworldmaven.HelloHadoopWorld</exec.args>
                 <exec.executable>java</exec.executable>
                 
+            </properties>
+        </action>
+        <action>
+            <actionName>test</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <properties>
+                <Env.HADOOP_HOME>/opt/local/hadoop-2.7.0</Env.HADOOP_HOME>
             </properties>
         </action>
     </actions>

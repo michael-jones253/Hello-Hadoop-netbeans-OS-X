@@ -5,6 +5,9 @@
  */
 package com.michaeljones.hellohadoopworldmaven;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -46,9 +49,7 @@ public class HelloHdfsTest {
         HelloHdfs instance = new HelloHdfs();
         
         // This test expects the HDFS to be running.
-        boolean expResult = true;
-        boolean result = instance.isOnline();
-        assertEquals(expResult, result);
+        assertTrue(instance.isOnline());
     }
 
     /**
@@ -58,21 +59,24 @@ public class HelloHdfsTest {
     public void testWriteFile() {
         System.out.println("writeFile");
         HelloHdfs instance = new HelloHdfs();
-        instance.writeFile();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            instance.writeFile();
+        } catch (IOException ex) {
+            Logger.getLogger(HelloHdfsTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail("Exception thrown.");
+        }
     }
 
     /**
      * Test of DumpConfig method, of class HelloHdfs.
      */
     @org.junit.Test
-    public void testDumpConfig() {
+    public void testCheckForDeprecatedConfig() {
         System.out.println("DumpConfig");
         HelloHdfs instance = new HelloHdfs();
-        instance.DumpConfig();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        boolean dumpAll = true;
+        assertFalse(instance.checkForDeprecatedConfig(dumpAll));
     }
     
 }
