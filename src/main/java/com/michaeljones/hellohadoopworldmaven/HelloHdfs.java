@@ -5,6 +5,10 @@
  */
 package com.michaeljones.hellohadoopworldmaven;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
@@ -23,6 +27,7 @@ import org.apache.hadoop.fs.Path;
  * @author michaeljones
  */
 public class HelloHdfs {
+    public static final String configDumpFileName = "output/configurationDump.txt";
     public static final String theFilename = "hello.txt";
     public static final String message = "Hello HDFS world!\n";
     private static final Logger LOGGER = Logger.getLogger(HelloHdfs.class.getName());
@@ -89,23 +94,35 @@ public class HelloHdfs {
     }
     
     public boolean checkForDeprecatedConfig(boolean dumpAll) {
-
+        PrintWriter dumpOut = null;
         boolean hasDeprecation = false;
-        Iterator<Map.Entry<String, String>> iterator = hadoopConfig.iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, String> entry = iterator.next();
-            String key = entry.getKey();
-            String value = entry.getValue();
-            boolean deprecated = Configuration.isDeprecated(key);
-            if (deprecated) {
-                hasDeprecation = true;
-                System.out.println("Key: " + key + "Value: " + value + " DEPRECATED.");
-            }            
-            else if (dumpAll) {
-                System.out.println("Key: " + key + "Value: " + value);
+        try {
+            dumpOut = new PrintWriter( new BufferedWriter(new FileWriter(configDumpFileName)));
+            Iterator<Map.Entry<String, String>> iterator = hadoopConfig.iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, String> entry = iterator.next();
+                String key = entry.getKey();
+                String value = entry.getValue();
+                boolean deprecated = Configuration.isDeprecated(key);
+                if (deprecated) {
+                    hasDeprecation = true;
+                    dumpOut.println("Key: " + key + "Value: " + value + " DEPRECATED.");
+                }
+                else if (dumpAll) {
+                    dumpOut.println("Key: " + key + "Value: " + value);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(HelloHdfs.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HelloHdfs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            if (dumpOut != null) {
+                dumpOut.close();
             }
         }
-    
+        
         return hasDeprecation;
     }
 }
