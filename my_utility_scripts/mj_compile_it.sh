@@ -4,6 +4,10 @@
 # Output is a jar file which can be run on the command line
 # via the hadoop executable.
 
+# Source the prefix of our installation.
+. mj_prefix
+export HADOOP_CMD="${MJ_PREFIX}/bin/hadoop"
+
 export JAVA_HOME=`/usr/libexec/java_home`
 export PATH=${JAVA_HOME}/bin:${PATH}
 export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar
@@ -22,7 +26,7 @@ PROG_NAME=$1
 
 echo "Compiling ${PROG_NAME}.java"
 
-bin/hadoop com.sun.tools.javac.Main ${PROG_NAME}.java
+$HADOOP_CMD com.sun.tools.javac.Main ${PROG_NAME}.java
 
 PROG_CLASSES=${PROG_NAME}*.class
 
