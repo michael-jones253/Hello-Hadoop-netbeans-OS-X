@@ -59,8 +59,10 @@ public class HelloMapReduce {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        Configuration conf = new Configuration();
+    public static Job RunJobAsync(
+            Path inputPath,
+            Path outputPath,
+            Configuration conf) throws Exception {
         Job job = Job.getInstance(conf, "word count");
         job.setJarByClass(HelloMapReduce.class);
         job.setMapperClass(TokenizerMapper.class);
@@ -68,8 +70,15 @@ public class HelloMapReduce {
         job.setReducerClass(IntSumReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        FileInputFormat.addInputPath(job, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        FileInputFormat.addInputPath(job, inputPath);
+        FileOutputFormat.setOutputPath(job, outputPath);
+        
+        return job;
+    }
+
+    public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        Job job = RunJobAsync(new Path(args[0]), new Path(args[1]), conf);
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 
