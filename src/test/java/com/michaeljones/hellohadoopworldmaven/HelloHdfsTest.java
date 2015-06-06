@@ -43,7 +43,7 @@ public class HelloHdfsTest {
     /**
      * Test of isOnline method, of class HelloHdfs.
      */
-    @org.junit.Test
+    @Test
     public void testIsOnline() {
         System.out.println("isOnline");
         HelloHdfs instance = new HelloHdfs();
@@ -55,7 +55,7 @@ public class HelloHdfsTest {
     /**
      * Test of writeFile method, of class HelloHdfs.
      */
-    @org.junit.Test
+    @Test
     public void testWriteFile() {
         System.out.println("writeFile");
         HelloHdfs instance = new HelloHdfs();
@@ -70,7 +70,7 @@ public class HelloHdfsTest {
     /**
      * Test of DumpConfig method, of class HelloHdfs.
      */
-    @org.junit.Test
+    @Test
     public void testCheckForDeprecatedConfig() {
         System.out.println("DumpConfig");
         HelloHdfs instance = new HelloHdfs();

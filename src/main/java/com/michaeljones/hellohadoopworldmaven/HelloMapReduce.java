@@ -22,7 +22,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
  *
  * @author michaeljones
  */
-public class HelloMapReduce {
+public class HelloMapReduce {    
 
     public static class TokenizerMapper
             extends Mapper<Object, Text, Text, IntWritable> {
@@ -40,22 +40,112 @@ public class HelloMapReduce {
             }
         }
     }
+    
+    public static class HelloIntReducer {
+        private boolean analysisIsOn = false;
+        private String callersName = "";
+        private final IntWritable result = new IntWritable();
+        
+        public HelloIntReducer() {
+            analysisIsOn = false;
+        }
+        
+        public HelloIntReducer(String className) {
+            analysisIsOn = true;
+            callersName = className;
+        }
+        
+        private String makeWriteDump(Text key, Iterable<IntWritable> values) {
+            // For analysis, we append all the values to the key to see how
+            // the result was arrived at.
+            StringBuilder keyString = new StringBuilder();
+            // Tells us whether it is the reducer or combiner which is performing
+            // the reduce.
+            keyString.append(callersName);
+            keyString.append("-").append(key.toString()).append("[");
 
-    public static class IntSumReducer
-            extends Reducer<Text, IntWritable, Text, IntWritable> {
+            boolean firstValue = true;
+            for (IntWritable val : values) {
+                if (!firstValue) {
+                    keyString.append(",");
+                }
+                
+                keyString.append(val.get());
+                firstValue = false;
+            }
+            
+            keyString.append("]");
+            
+            return keyString.toString();
+        }
 
-        private IntWritable result = new IntWritable();
-
-        @Override
         public void reduce(Text key, Iterable<IntWritable> values,
-                Context context
+                Reducer.Context context
         ) throws IOException, InterruptedException {
             int sum = 0;
             for (IntWritable val : values) {
                 sum += val.get();
             }
+            
             result.set(sum);
             context.write(key, result);
+            
+            if (analysisIsOn) {
+                System.out.println(makeWriteDump(key, values));
+            }
+        }        
+    }
+
+    public static class IntSumReducer
+            extends Reducer<Text, IntWritable, Text, IntWritable> {
+        // Containment rather than inheritance.
+        private final HelloIntReducer intReducer;
+
+        public IntSumReducer() {
+            // Simple reducer, no analysis dump.
+            intReducer = new HelloIntReducer();
+        }
+
+        @Override
+        public void reduce(Text key, Iterable<IntWritable> values,
+                Context context
+        ) throws IOException, InterruptedException {
+            intReducer.reduce(key, values, context);
+        }
+    }
+    
+    public static class IntSumReducerAnalyser
+            extends Reducer<Text, IntWritable, Text, IntWritable> {
+        // Containment rather than inheritance.
+        private final HelloIntReducer intReducer;
+
+        public IntSumReducerAnalyser() {
+            // Reducer will dump class name and analysis.
+            intReducer = new HelloIntReducer(this.getClass().getSimpleName());
+        }
+
+        @Override
+        public void reduce(Text key, Iterable<IntWritable> values,
+                Context context
+        ) throws IOException, InterruptedException {
+            intReducer.reduce(key, values, context);
+        }
+    }
+
+    public static class IntSumCombinerAnalyser
+            extends Reducer<Text, IntWritable, Text, IntWritable> {
+        private final HelloIntReducer intReducer;
+        
+        public IntSumCombinerAnalyser() {
+            // Reducer will dump class name and analysis.
+            intReducer = new HelloIntReducer(this.getClass().getSimpleName());
+        }
+        
+        @Override
+        public void reduce(Text key, Iterable<IntWritable> values,
+                Context context
+        ) throws IOException, InterruptedException {
+            intReducer.reduce(key, values, context);
         }
     }
 
@@ -76,10 +166,31 @@ public class HelloMapReduce {
         return job;
     }
 
+    public static Job RunJobAnalysisAsync(
+            Path inputPath,
+            Path outputPath,
+            Configuration conf) throws Exception {
+        Job job = Job.getInstance(conf, "word count");
+        job.setJarByClass(HelloMapReduce.class);
+        job.setMapperClass(TokenizerMapper.class);
+        job.setCombinerClass(IntSumCombinerAnalyser.class);
+        job.setReducerClass(IntSumReducerAnalyser.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+        FileInputFormat.addInputPath(job, inputPath);
+        FileOutputFormat.setOutputPath(job, outputPath);
+        
+        return job;
+    }
+
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         Job job = RunJobAsync(new Path(args[0]), new Path(args[1]), conf);
-        System.exit(job.waitForCompletion(true) ? 0 : 1);
+        
+        // The orginal WordCount.java that comes with the distribution has a
+        // System exit on job completion, but this makes it impossible to unit
+        // test.
+        boolean ok = job.waitForCompletion(true);
     }
-
+    
 }

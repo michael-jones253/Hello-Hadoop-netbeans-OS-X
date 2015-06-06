@@ -26,7 +26,9 @@ import static org.junit.Assert.*;
 public class HelloMapReduceTest {
     static final String wcInputPathDir = "wcInput";
     static final String wcOutputPathDir = "wcOutput";
-    Configuration hadoopConfig = null;
+    static final String wcOutputAnalysisPathDir = "wcOutputAnalysis";
+    static final String wcOutputMainPathDir = "wcOutputMain";
+    static Configuration hadoopConfig = null;
     
     public HelloMapReduceTest() {
         hadoopConfig = new Configuration();
@@ -42,20 +44,6 @@ public class HelloMapReduceTest {
     
     @Before
     public void setUp() {
-        try {
-            FileSystem hdfs = FileSystem.get(hadoopConfig);
-            Path outputPath = new Path(wcOutputPathDir);
-
-            // We need to remove the output directory before running the map reduce job.
-            if (hdfs.exists(outputPath)) {
-                // remove the directory recursively.
-                hdfs.delete(outputPath, true);
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(HelloMapReduceTest.class.getName()).log(Level.SEVERE, null, ex);
-            fail("Cannot setup test.");
-        }
     }
     
     @After
@@ -69,9 +57,36 @@ public class HelloMapReduceTest {
     @Test
     public void testRunJobAsync() throws Exception {
         System.out.println("RunJobAsync");
-        Path inputPath = new Path(wcInputPathDir);
+        FileSystem hdfs = FileSystem.get(hadoopConfig);
         Path outputPath = new Path(wcOutputPathDir);
+
+        // We need to remove the output directory before running the map reduce job.
+        if (hdfs.exists(outputPath)) {
+            // remove the directory recursively.
+            hdfs.delete(outputPath, true);
+        }
+
+        Path inputPath = new Path(wcInputPathDir);
         Job result = HelloMapReduce.RunJobAsync(inputPath, outputPath, hadoopConfig);
+        boolean ok = result.waitForCompletion(true);
+        assertTrue(ok);
+    }
+    
+    /**
+     * Test of RunJobAnalysisAsync method, of class HelloMapReduce.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testRunJobAnalysisAsync() throws Exception {
+        System.out.println("RunJobAnalysisAsync");
+        FileSystem hdfs = FileSystem.get(hadoopConfig);
+        Path outputPath = new Path(wcOutputAnalysisPathDir);
+        if (hdfs.exists(outputPath)) {
+            hdfs.delete(outputPath, true);
+        }
+        
+        Path inputPath = new Path(wcInputPathDir);
+        Job result = HelloMapReduce.RunJobAnalysisAsync(inputPath, outputPath, hadoopConfig);
         boolean ok = result.waitForCompletion(true);
         assertTrue(ok);
     }
@@ -83,8 +98,18 @@ public class HelloMapReduceTest {
     @Test
     public void testMain() throws Exception {
         System.out.println("main");
-        String[] args = {wcInputPathDir, wcOutputPathDir};
+        FileSystem hdfs = FileSystem.get(hadoopConfig);
+
+        Path outputPath = new Path(wcOutputMainPathDir);
+        if (hdfs.exists(outputPath)) {
+            hdfs.delete(outputPath, true);
+        }
+        
+        String[] args = {wcInputPathDir, wcOutputMainPathDir};
         HelloMapReduce.main(args);
+        
+        // Assume it is true.
+        assertTrue(true);
     }
     
 }

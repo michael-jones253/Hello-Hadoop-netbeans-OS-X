@@ -1,3 +1,6 @@
 /target/
 /hello.txt
 /output/
+/my_utility_scripts/*.class
+/my_utility_scripts/*.out
+/my_utility_scripts/*.jar
