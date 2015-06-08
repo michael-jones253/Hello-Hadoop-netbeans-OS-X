@@ -5,9 +5,6 @@
  */
 package com.michaeljones.hellohadoopworldmaven;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -18,6 +15,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  *
@@ -29,7 +29,8 @@ public class HelloMapReduceTest {
     static final String wcOutputAnalysisPathDir = "wcOutputAnalysis";
     static final String wcOutputMainPathDir = "wcOutputMain";
     static Configuration hadoopConfig = null;
-    
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelloMapReduceTest.class.getName());
+   
     public HelloMapReduceTest() {
         hadoopConfig = new Configuration();
     }
@@ -57,6 +58,8 @@ public class HelloMapReduceTest {
     @Test
     public void testRunJobAsync() throws Exception {
         System.out.println("RunJobAsync");
+        LOGGER.info("RunJobAsync");
+
         FileSystem hdfs = FileSystem.get(hadoopConfig);
         Path outputPath = new Path(wcOutputPathDir);
 
@@ -79,6 +82,7 @@ public class HelloMapReduceTest {
     @Test
     public void testRunJobAnalysisAsync() throws Exception {
         System.out.println("RunJobAnalysisAsync");
+        LOGGER.info("RunJobAnalysisAsync");
         FileSystem hdfs = FileSystem.get(hadoopConfig);
         Path outputPath = new Path(wcOutputAnalysisPathDir);
         if (hdfs.exists(outputPath)) {
@@ -98,6 +102,7 @@ public class HelloMapReduceTest {
     @Test
     public void testMain() throws Exception {
         System.out.println("main");
+        LOGGER.info("testMain");
         FileSystem hdfs = FileSystem.get(hadoopConfig);
 
         Path outputPath = new Path(wcOutputMainPathDir);

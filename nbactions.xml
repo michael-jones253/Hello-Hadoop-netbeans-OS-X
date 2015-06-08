@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath com.michaeljones.hellohadoopworldmaven.HelloMapReduce wcInput wcOutput</exec.args>
+                <exec.args>-classpath %classpath com.michaeljones.hellohadoopworldmaven.HelloHadoopWorld wcInput wcOutput</exec.args>
                 <exec.executable>java</exec.executable>
                 <Env.HADOOP_HOME>/opt/local/hadoop-2.7.0</Env.HADOOP_HOME>
             </properties>
@@ -25,7 +25,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath com.michaeljones.hellohadoopworldmaven.HelloMapReduce wcInput wcOutput</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath com.michaeljones.hellohadoopworldmaven.HelloHadoopWorld wcInput wcOutput</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
                 <Env.HADOOP_HOME>/opt/local/hadoop-2.7.0</Env.HADOOP_HOME>
@@ -42,7 +42,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath com.michaeljones.hellohadoopworldmaven.HelloMapReduce wcInput wcOutput</exec.args>
+                <exec.args>-classpath %classpath com.michaeljones.hellohadoopworldmaven.HelloHadoopWorld wcInput wcOutput</exec.args>
                 <exec.executable>java</exec.executable>
                 
             </properties>

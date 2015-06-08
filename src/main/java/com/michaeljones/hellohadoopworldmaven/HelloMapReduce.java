@@ -8,6 +8,7 @@ package com.michaeljones.hellohadoopworldmaven;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
+import org.apache.commons.collections.iterators.ListIteratorWrapper;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -17,12 +18,15 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author michaeljones
  */
 public class HelloMapReduce {    
+    private static final Logger LOGGER = LoggerFactory.getLogger(Mapper.class.getName());
 
     public static class TokenizerMapper
             extends Mapper<Object, Text, Text, IntWritable> {
@@ -55,7 +59,7 @@ public class HelloMapReduce {
             callersName = className;
         }
         
-        private String makeWriteDump(Text key, Iterable<IntWritable> values) {
+        private String makeWriteDump(Text key, ListIteratorWrapper values) {
             // For analysis, we append all the values to the key to see how
             // the result was arrived at.
             StringBuilder keyString = new StringBuilder();
@@ -65,12 +69,12 @@ public class HelloMapReduce {
             keyString.append("-").append(key.toString()).append("[");
 
             boolean firstValue = true;
-            for (IntWritable val : values) {
+            while (values.hasNext()) {
                 if (!firstValue) {
                     keyString.append(",");
                 }
                 
-                keyString.append(val.get());
+                keyString.append((IntWritable)values.next());
                 firstValue = false;
             }
             
@@ -82,17 +86,21 @@ public class HelloMapReduce {
         public void reduce(Text key, Iterable<IntWritable> values,
                 Reducer.Context context
         ) throws IOException, InterruptedException {
+            ListIteratorWrapper wrappedValues = new ListIteratorWrapper(values.iterator());
+            if (analysisIsOn) {
+                String writeDump = makeWriteDump(key, wrappedValues);
+                LOGGER.info(writeDump);
+                wrappedValues.reset();
+            }
+                
             int sum = 0;
-            for (IntWritable val : values) {
+            while(wrappedValues.hasNext()) {
+                IntWritable val = (IntWritable)wrappedValues.next();
                 sum += val.get();
             }
             
             result.set(sum);
-            context.write(key, result);
-            
-            if (analysisIsOn) {
-                System.out.println(makeWriteDump(key, values));
-            }
+            context.write(key, result);            
         }        
     }
 

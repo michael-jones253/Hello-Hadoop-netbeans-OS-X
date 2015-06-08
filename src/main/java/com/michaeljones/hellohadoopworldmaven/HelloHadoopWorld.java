@@ -20,6 +20,8 @@ public class HelloHadoopWorld {
      */
     public static void main(String[] args) {
         try {
+            Logger.getLogger(HelloHadoopWorld.class.getName()).log(Level.INFO, "Hello Hadoop World!");
+            
             HelloHdfs hdfs = new HelloHdfs();
             hdfs.writeFile();
         } catch (IOException ex) {
