@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * @author michaeljones
  */
 public class HelloMapReduce {    
-    private static final Logger LOGGER = LoggerFactory.getLogger(Mapper.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelloMapReduce.class.getName());
 
     public static class TokenizerMapper
             extends Mapper<Object, Text, Text, IntWritable> {
