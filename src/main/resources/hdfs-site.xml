@@ -16,8 +16,23 @@
 
 <!-- Put site-specific property overrides in this file. -->
 
-<!-- Replication of 1 actually means no replication. -->
+<!-- The reason why this is "pseudo distributed" configuration is because
+    the name node and the (only) datanode are running on the the same
+    machine. Normally there would be one name node and multiple data nodes
+    running on separate machines.
+    So this is why this pseudo distributed configuration has entries for
+    the storage directories of both the name node and a data node. Normally
+    we would see either one or the other depending on whether this machine
+    is playing the namenode or datanode role.
+-->
 <configuration>
+    <!-- Replication of 1 actually means no replication. Replication refers
+    to the duplication of datanode blocks not namenode meta-information.
+    Name node meta information is not duplicated.
+    However, I think the namenode needs this pararameter in order to know
+    how to refer to the duplicated data blocks. I think therefore that
+    the datanodes do not need the replication parameter (I need to check).
+    -->
     <property>
         <name>dfs.replication</name>
         <value>1</value>

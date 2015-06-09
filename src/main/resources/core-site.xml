@@ -17,6 +17,11 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <!-- MJ the following element was empty -->
+<!-- This is the namenode (meta-data node) URI. There is only one
+    namenode, however I think all nodes need this file. The namenode
+    needs it to know what port it is communicating RPCs on. The datanodes
+    also need to know the RPC port of the data node they talk to.
+-->
 <configuration>
     <property>
         <name>fs.defaultFS</name>
