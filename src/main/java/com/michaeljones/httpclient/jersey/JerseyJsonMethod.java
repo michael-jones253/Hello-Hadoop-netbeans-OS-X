@@ -5,7 +5,7 @@
  */
 package com.michaeljones.httpclient.jersey;
 
-import com.michaeljones.httpclient.HttpMethod;
+import com.michaeljones.httpclient.HttpJsonMethod;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -15,10 +15,10 @@ import com.sun.jersey.api.client.WebResource;
  *
  * @author michaeljones
  */
-public class JerseyMethod implements HttpMethod {
+public class JerseyJsonMethod implements HttpJsonMethod {
     Client jerseyImpl;
     
-    public JerseyMethod() {
+    public JerseyJsonMethod() {
         jerseyImpl = Client.create();
     }
 

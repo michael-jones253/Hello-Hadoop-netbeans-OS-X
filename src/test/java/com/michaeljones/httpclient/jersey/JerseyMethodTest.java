@@ -52,7 +52,7 @@ public class JerseyMethodTest {
         
         // HDFS needs to be running, because the following URI is a Web HDFS resource.
         String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/?op=LISTSTATUS";
-        JerseyMethod instance = new JerseyMethod();
+        JerseyJsonMethod instance = new JerseyJsonMethod();
         String result = instance.GetStringContent(url);
         
         LOGGER.info("testGetStringContent");

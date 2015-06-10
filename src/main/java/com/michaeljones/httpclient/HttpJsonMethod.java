@@ -9,6 +9,6 @@ package com.michaeljones.httpclient;
  *
  * @author michaeljones
  */
-public interface HttpMethod {
+public interface HttpJsonMethod {
     String GetStringContent(String url);    
 }
