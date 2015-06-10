@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.michaeljones.httpclient.jersey;
+package com.michaeljones.httpclient.apache;
 
 import com.michaeljones.hellohadoopworldmaven.HelloHdfsTest;
 import org.junit.After;
@@ -19,12 +19,11 @@ import org.slf4j.LoggerFactory;
  *
  * @author michaeljones
  */
-public class JerseyMethodTest {
-    // Send the logs to the same appender as for the hellohadoopworld package.
+public class ApacheJsonMethodTest {
+        // Send the logs to the same appender as for the hellohadoopworld package.
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloHdfsTest.class.getName());
-
     
-    public JerseyMethodTest() {
+    public ApacheJsonMethodTest() {
     }
     
     @BeforeClass
@@ -44,19 +43,21 @@ public class JerseyMethodTest {
     }
 
     /**
-     * Test of GetStringContent method, of class JerseyMethod.
+     * Test of GetStringContent method, of class ApacheJsonMethod.
      */
     @Test
     public void testGetStringContent() {
         System.out.println("GetStringContent");
-        
         // HDFS needs to be running, because the following URI is a Web HDFS resource.
         String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/?op=LISTSTATUS";
-        JerseyJsonMethod instance = new JerseyJsonMethod();
+
+        ApacheJsonMethod instance = new ApacheJsonMethod();
+
         String result = instance.GetStringContent(url);
         
-        LOGGER.info("Jersey client testGetStringContent");
+        LOGGER.info("Apache client testGetStringContent");
         LOGGER.info(result);
+
         assertTrue(result.contains("FileStatus"));
     }
     
