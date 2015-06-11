@@ -78,5 +78,40 @@ public class HadoopHdfsRestClientTest {
         // The file is expected to have been created by the HDFS tests.
         assertTrue(foundHelloFile);
     }
+
+    /**
+     * Test of CreateEmptyFile method, of class HadoopHdfsRestClient.
+     */
+    @Test
+    public void testCreateEmptyFile() {
+        System.out.println("CreateEmptyFile");
+        String remoteRelativePath = "hello-emtpy.txt";
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(
+                "localhost",
+                "michaeljones");
+
+        instance.CreateEmptyFile(remoteRelativePath);
+        
+        // If it doesn't throw an exception, consider passed.
+        assertTrue(true);
+    }
+
+    /**
+     * Test of UploadFile method, of class HadoopHdfsRestClient.
+     */
+    @Test
+    public void testUploadFile() {
+        System.out.println("UploadFile");
+        String remoteRelativePath = "hellohadoop.log";
+        String localPath = "hellohadoop.log";
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(
+                "localhost",
+                "michaeljones");
+
+        instance.UploadFile(remoteRelativePath, localPath);
+
+        // If it doesn't throw an exception, consider passed.
+        assertTrue(true);
+    }
     
 }

@@ -41,6 +41,7 @@ public class JerseyJsonMethod implements HttpJsonMethod {
         return result;
     }
     
+    @Override
     public int PutQuery(String url, List<Pair<String, String>> queryParams) {
         WebResource putResource = jerseyImpl.resource(url);
         for (Pair<String, String> queryParam : queryParams) {
@@ -52,6 +53,7 @@ public class JerseyJsonMethod implements HttpJsonMethod {
         return putResponse.getStatus();
     }
     
+    @Override
     public int PutFile(String url, String filePath, List<Pair<String, String>> queryParams) throws FileNotFoundException {
         WebResource fileResource = jerseyImpl.resource(url);
         for (Pair<String, String> queryParam : queryParams) {
@@ -62,5 +64,10 @@ public class JerseyJsonMethod implements HttpJsonMethod {
         ClientResponse response = fileResource.type(MediaType.APPLICATION_OCTET_STREAM).put(ClientResponse.class, fileInStream);
          
         return response.getStatus();
+    }
+
+    @Override
+    public void Close() {
+        jerseyImpl.destroy();
     }
 }

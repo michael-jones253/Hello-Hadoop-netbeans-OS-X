@@ -6,9 +6,12 @@
 package com.michaeljones.httpclient.apache;
 
 import com.michaeljones.httpclient.HttpJsonMethod;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.math3.util.Pair;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.HttpClients;
@@ -51,6 +54,21 @@ public class ApacheJsonMethod implements HttpJsonMethod {
         }
         
         return content;
+    }
+
+    @Override
+    public int PutQuery(String url, List<Pair<String, String>> queryParams) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int PutFile(String url, String filePath, List<Pair<String, String>> queryParams) throws FileNotFoundException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void Close() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
