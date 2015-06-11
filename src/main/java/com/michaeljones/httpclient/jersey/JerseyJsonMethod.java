@@ -9,6 +9,12 @@ import com.michaeljones.httpclient.HttpJsonMethod;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.List;
+import javax.ws.rs.core.MediaType;
+import org.apache.commons.math3.util.Pair;
 
 
 /**
@@ -33,5 +39,28 @@ public class JerseyJsonMethod implements HttpJsonMethod {
         String result = response.getEntity(String.class);
         
         return result;
-    }   
+    }
+    
+    public int PutQuery(String url, List<Pair<String, String>> queryParams) {
+        WebResource putResource = jerseyImpl.resource(url);
+        for (Pair<String, String> queryParam : queryParams) {
+            putResource = putResource.queryParam(queryParam.getFirst(), queryParam.getSecond());
+        }
+        
+        ClientResponse putResponse = putResource.put(ClientResponse.class);
+        
+        return putResponse.getStatus();
+    }
+    
+    public int PutFile(String url, String filePath, List<Pair<String, String>> queryParams) throws FileNotFoundException {
+        WebResource fileResource = jerseyImpl.resource(url);
+        for (Pair<String, String> queryParam : queryParams) {
+            fileResource = fileResource.queryParam(queryParam.getFirst(), queryParam.getSecond());
+        }
+
+        InputStream  fileInStream = new FileInputStream(filePath);
+        ClientResponse response = fileResource.type(MediaType.APPLICATION_OCTET_STREAM).put(ClientResponse.class, fileInStream);
+         
+        return response.getStatus();
+    }
 }
