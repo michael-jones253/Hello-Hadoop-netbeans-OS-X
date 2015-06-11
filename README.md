@@ -8,7 +8,7 @@ So far the difficult part has been working out how to run the program in the IDE
 
 The Apache Hadoop instructions for building and running java programs are via their command line build/run utility only. Getting the yahoo hadoop HDFS tutorial program to build in the IDE wasn't too hard. However, by default it will ignore the local Hadoop configuration and only operate with the local file system in local debug mode.
 
-## Wading through the configuration.
+## Wading through the configuration
 Hadoop is designed to work with a number of different topologies, directory locations, levels of replication, simulated environments etc. so as we would expect nothing works unless the configuration is right.
 
 First Hadoop needs to be installed and configured in pseudo distributed mode such that it builds and runs test programs on the command line. The hadoop documentation has instructions for doing this. Documentation is online and also included in the installation: share/doc/hadoop/index.html. However this is not enough to get it to work in the IDE.
@@ -22,7 +22,7 @@ First Hadoop needs to be installed and configured in pseudo distributed mode suc
 
 I think that the setup of this project would probably work on Linux too.
 
-## Working through trouble shooting the HDFS project settings.
+## Working through trouble shooting the HDFS project settings
 
 Issue 1 above shows up as:
 <pre><code>
@@ -66,7 +66,7 @@ I noted the jar name at the end and added it as a dependency to the POM. This ca
 
 After doing the above project built, but showed up the "no filesystem error". I noticed that Maven had not pulled in any hdfs jars matching the jars in my share/hadoop/hdfs installation directory. So I took a guess that it needed only the top level hadoop-hdfs-2.7.0.jar and added this as a dependency to the POM and all was good :)
 
-## Working through trouble shooting the Map Reduce project settings.
+## Working through trouble shooting the Map Reduce project settings
 After getting the HDFS API working in the IDE it was time to move on to getting the famous Word Count map-reduce tutorial running.
 
 So coded it, set the main program to the word count main as the one to run. From the IDE: project Properties => Run => Main Class. Provide input and output arguments for the word count program. I noted that the netbeans properties pop-up window does not persist these settings next time it pops up. However this setting is persistant and ends up in nbactions.xml.
@@ -83,5 +83,10 @@ I then checked my dependencies and noted there were no map reduce jars pulled in
 
 ## Logging from application code
 Although the hadoop libraries log correctly with a properly located log4.properties file, application code calling the log4j logger seems to ignore this file. Using the log4j logger as per instructions in the log4j manual and many online tutorials did not result in getting any logging redirected to file configured in the properties file. Instead console output only is obtained. A clue to this mystery was that a most basic of hello world netbeans maven projects which did not import any hadoop stuff also failed to log to a file and did not even give the "No appenders" warning. Then I noticed that there were org.sl4j depencies in the hadoop build, so using sl4j instead solved the problem. Once my hello world project used sl4j's LoggerFactory and had sl4j-api and sl4j-12 as a dependencies it started to use the properties file. See http://www.slf4j.org/manual.html
+
+## Upload a file from local storage to the HDFS via the REST API
+The WebHDFS REST API documentation which came with the installation specifies that file creation is a two stage operation where an initial PUT to the namenode is sent. This responds with a redirect to the datanode and another PUT should be made to this redirection which can contain the chunked data stream. This does not sound REST to me as it relies on holding redirection state (a fully distributed configuration could presumably return a redirection to any one of the datanodes). Apache say this is because of a bug.
+
+However, the 2 stage PUT not being REST seems to be a moot point now, because I do not get a redirection and a file creates/uploads all in one go. They must have fixed the bug (unless pseudo distributed works differently).
 
 To be continued ...
