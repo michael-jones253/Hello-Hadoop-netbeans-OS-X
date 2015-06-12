@@ -2,10 +2,13 @@
 Java Maven project for playing with the HDFS API without any 3rd party hadoop plugins.
 
 ## Aim of project
-Hello world tutorial level work in progress for programmatically operating with a pseudo distributed hadoop configuration on OS X. Hadoop 2.7 on Yosemite.
+Hello world/tutorial level for programmatically operating with a pseudo distributed hadoop configuration on OS X. Hadoop 2.7 on Yosemite.
 
-So far this project demonstrates:
-1. Direct programmatic control of the HDFS and running map reduce jobs - unit tests run from the IDE.
+## What this project demonstrates
+
+This is work in progress and so far the following functionality is demonstrated:
+
+1. Direct programmatic control of the HDFS and running map reduce jobs - all unit tests run from the IDE with hadoop configuration built into this project and under git control.
 2. Uploading of files to the HDFS by implementing a Web REST API client.
 3. Layered application code for maximum re-use and ease of test driven development. The client I wrote uses an interface which has allowed me to provide both a Jersey HTTP client implementation and an Apache HTTP client implementation for comparison between the two toolkits.
 
