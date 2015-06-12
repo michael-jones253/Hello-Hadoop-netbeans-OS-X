@@ -2,9 +2,14 @@
 Java Maven project for playing with the HDFS API without any 3rd party hadoop plugins.
 
 ## Aim of project
-Just hello world tutorial level work in progress for programmatically operating with a pseudo distributed hadoop configuration on OS X. Hadoop 2.7 on Yosemite.
+Hello world tutorial level work in progress for programmatically operating with a pseudo distributed hadoop configuration on OS X. Hadoop 2.7 on Yosemite.
 
-So far the difficult part has been working out how to run the program in the IDE and talk to the local pseudo distributed setup without using a 3rd party Hadoop plugin. Apparently there used to be a plugin for netbeans, but it has been discontinued. I am a newbie with this technology.
+So far this project demonstrates:
+1. Direct programmatic control of the HDFS and running map reduce jobs - unit tests run from the IDE.
+2. Uploading of files to the HDFS by implementing a Web REST API client.
+3. Layered application code for maximum re-use and ease of test driven development. The client I wrote uses an interface which has allowed me to provide both a Jersey HTTP client implementation and an Apache HTTP client implementation for comparison between the two toolkits.
+
+The initial difficulty was working out how to run the program in the IDE and talk to the local pseudo distributed setup without using a 3rd party Hadoop plugin. Apparently there used to be a plugin for netbeans, but it has been discontinued. I am a newbie with this technology.
 
 The Apache Hadoop instructions for building and running java programs are via their command line build/run utility only. Getting the yahoo hadoop HDFS tutorial program to build in the IDE wasn't too hard. However, by default it will ignore the local Hadoop configuration and only operate with the local file system in local debug mode.
 
