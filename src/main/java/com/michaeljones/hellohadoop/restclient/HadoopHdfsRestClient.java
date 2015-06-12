@@ -101,8 +101,7 @@ public class HadoopHdfsRestClient {
             int httpCode = restImpl.PutQuery(uri, queryParams, redirectLocation);
             
             // NB two separate PUTs may be needed which is not strictly REST, but
-            // this is the Hadoop documented procedure. We keep the HTTP TCP 
-            // connection open between both calls.
+            // this is the Hadoop documented procedure.
             switch (httpCode) {
                 case 307:
                     // The above PUT to the Hadoop name node has returned us a redirection
@@ -148,8 +147,7 @@ public class HadoopHdfsRestClient {
             int httpCode = restImpl.PutFile(uri, localPath, queryParams, redirectLocation);
             
             // NB two separate PUTs may be needed which is not strictly REST, but
-            // this is the Hadoop documented procedure. We keep the HTTP TCP 
-            // connection open between both calls.
+            // this is the Hadoop documented procedure.
             switch (httpCode) {
                 case 307:
                     // The above PUT to the Hadoop name node has returned us a redirection
