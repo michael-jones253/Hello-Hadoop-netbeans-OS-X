@@ -5,10 +5,8 @@
  */
 package com.michaeljones.hellohadoop.restclient;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import com.michaeljones.httpclient.HttpJsonMethod;
+import com.michaeljones.httpclient.apache.ApacheJsonMethod;
 import com.michaeljones.httpclient.jersey.JerseyJsonMethod;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -17,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.math3.util.Pair;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -45,15 +45,24 @@ public class HadoopHdfsRestClient {
         return client;
     }
 
-    public String[] ListDirectorySimple(String relativePath) {
+    // The factory method allows us to create different underlying implementations of this client.
+    public static HadoopHdfsRestClient ApacheClientFactory(String host, String username) {
+        HadoopHdfsRestClient client = new HadoopHdfsRestClient(host, username);
+        client.restImpl = new ApacheJsonMethod();
+
+        return client;
+    }
+
+    public String[] ListDirectorySimple(String remoteRelativePath) {
         try {
-            // FIX ME query params to list of pairs.
-            String urlFormat = "http://%1$s:50070/webhdfs/v1/user/%2$s/%3$s/?op=LISTSTATUS";
+            // %1 host, %2 username %3 resource.
+            String uri = String.format(BASIC_URL_FORMAT, host, username, remoteRelativePath);
+            List<Pair<String, String>> queryParams = new ArrayList();
+            queryParams.add(new Pair<>("user.name","michaeljones"));
+            queryParams.add(new Pair<>("op","LISTSTATUS"));
             
-            String format = String.format(urlFormat, host, username, relativePath);
-            String content = restImpl.GetStringContent(format);
+            String content = restImpl.GetStringContent(uri, queryParams);
             
-            // FIX ME json parsing.
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(content);
             
@@ -84,7 +93,6 @@ public class HadoopHdfsRestClient {
         List<Pair<String, String>> queryParams = new ArrayList();
         queryParams.add(new Pair<>("user.name","michaeljones"));
         queryParams.add(new Pair<>("op","CREATE"));
-        queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
         
         try {
@@ -106,7 +114,6 @@ public class HadoopHdfsRestClient {
         String uri = String.format(BASIC_URL_FORMAT, host, username, remoteRelativePath);
         List<Pair<String, String>> queryParams = new ArrayList();
         queryParams.add(new Pair<>("user.name","michaeljones"));
-        queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
 

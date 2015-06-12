@@ -14,7 +14,7 @@ import org.apache.commons.math3.util.Pair;
  * @author michaeljones
  */
 public interface HttpJsonMethod {
-    String GetStringContent(String url); 
+    String GetStringContent(String url, List<Pair<String, String>> queryParams); 
     
     int PutQuery(String url, List<Pair<String, String>> queryParams);
     

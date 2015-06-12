@@ -6,59 +6,102 @@
 package com.michaeljones.httpclient.apache;
 
 import com.michaeljones.httpclient.HttpJsonMethod;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.math3.util.Pair;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+
+import java.net.URISyntaxException;
+import org.apache.http.Header;
+import org.apache.http.client.utils.URIBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author michaeljones
  */
 public class ApacheJsonMethod implements HttpJsonMethod {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApacheJsonMethod.class.getName());
+
     CloseableHttpClient clientImpl;
-    
+
     public ApacheJsonMethod() {
         clientImpl = HttpClients.createDefault();
     }
 
     @Override
-    public String GetStringContent(String url) {
-        String content = null;
+    public String GetStringContent(String url, List<Pair<String, String>> queryParams) {
         try {
             HttpGet httpget = new HttpGet(url);
-            
+
             // The Hadoop Web HDFS only serves json, but no harm in being explicit.
-            httpget.setHeader("accept", "application/json");            
-            
-            CloseableHttpResponse response = clientImpl.execute(httpget);
-            HttpEntity entity = response.getEntity();
-            content = EntityUtils.toString(entity);
-        } catch (IOException ex) {
-            Logger.getLogger(ApacheJsonMethod.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally {
-            try {
-                clientImpl.close();
-            } catch (IOException ex) {
-                Logger.getLogger(ApacheJsonMethod.class.getName()).log(Level.SEVERE, null, ex);
+            httpget.setHeader("accept", "application/json");
+
+            URIBuilder builder = new URIBuilder(url);
+
+            for (Pair<String, String> queryParam : queryParams) {
+                builder.addParameter(queryParam.getFirst(), queryParam.getSecond());
             }
+
+            httpget.setURI(builder.build());
+
+            CloseableHttpResponse response = clientImpl.execute(httpget);
+            try {
+                HttpEntity entity = response.getEntity();
+                return EntityUtils.toString(entity);
+            } finally {
+                // I believe this releases the connection to the client pool, but does not
+                // close the connection.
+                response.close();
+            }
+        } catch (IOException | URISyntaxException ex) {
+            throw new RuntimeException("Apache method get string content: " + ex.getMessage());
         }
-        
-        return content;
     }
 
     @Override
     public int PutQuery(String url, List<Pair<String, String>> queryParams) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            HttpPut httpPut = new HttpPut();
+            URIBuilder builder = new URIBuilder(url);
+
+            for (Pair<String, String> queryParam : queryParams) {
+                builder.addParameter(queryParam.getFirst(), queryParam.getSecond());
+            }
+
+            // httpPut.setURI(builder.build());
+            httpPut = new HttpPut(builder.build());
+            CloseableHttpResponse response = clientImpl.execute(httpPut);
+            try {
+                Header[] hdrs = response.getHeaders("Location");
+                if (hdrs.length > 0) {
+                    String redirectLocation = hdrs[0].getValue();
+
+                    // FIX ME output this string as parameter.
+                    LOGGER.debug("Redirect to: " + redirectLocation);
+                }
+
+                return response.getStatusLine().getStatusCode();
+            } finally {
+                // I believe this releases the connection to the client pool, but does not
+                // close the connection.
+                response.close();
+            }
+        } catch (IOException | URISyntaxException ex) {
+            throw new RuntimeException("Apache method putQuery: " + ex.getMessage());
+        }
     }
 
     @Override
@@ -68,7 +111,12 @@ public class ApacheJsonMethod implements HttpJsonMethod {
 
     @Override
     public void Close() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            // I believe this closes all connections held by the client.
+            clientImpl.close();
+        } catch (IOException ex) {
+            throw new RuntimeException("Jersey client close : " + ex.getMessage());
+        }
     }
-    
+
 }

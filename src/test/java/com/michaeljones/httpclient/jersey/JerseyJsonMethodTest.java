@@ -11,10 +11,11 @@ import java.util.List;
 import org.apache.commons.math3.util.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +33,7 @@ public class JerseyJsonMethodTest {
     
     @BeforeClass
     public static void setUpClass() {
+        // HDFS needs to be running, because the following URI is a Web HDFS resource.
     }
     
     @AfterClass
@@ -53,10 +55,14 @@ public class JerseyJsonMethodTest {
     public void testGetStringContent() {
         System.out.println("GetStringContent");
         
-        // HDFS needs to be running, because the following URI is a Web HDFS resource.
-        String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/?op=LISTSTATUS";
+        // Test list a directory on the HDFS.
+        String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/";
+        List<Pair<String, String>> queryParams = new ArrayList();
+        
+        // List does not require username and password query parameters.
+        queryParams.add(new Pair<>("op","LISTSTATUS"));
         JerseyJsonMethod instance = new JerseyJsonMethod();
-        String result = instance.GetStringContent(url);
+        String result = instance.GetStringContent(url, queryParams);
         
         LOGGER.info("Jersey client testGetStringContent");
         LOGGER.info(result);
@@ -86,6 +92,7 @@ public class JerseyJsonMethodTest {
 
     /**
      * Test of PutFile method, of class JerseyJsonMethod.
+     * @throws java.lang.Exception
      */
     @Test
     public void testPutFile() throws Exception {

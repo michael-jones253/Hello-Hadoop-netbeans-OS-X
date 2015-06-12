@@ -29,9 +29,13 @@ public class JerseyJsonMethod implements HttpJsonMethod {
     }
 
     @Override
-    public String GetStringContent(String url) {
-        WebResource resource = jerseyImpl.resource(url);
-        ClientResponse response = resource.accept("application/json").get(ClientResponse.class);
+    public String GetStringContent(String url, List<Pair<String, String>> queryParams) {
+        WebResource getResource = jerseyImpl.resource(url);
+        for (Pair<String, String> queryParam : queryParams) {
+            getResource = getResource.queryParam(queryParam.getFirst(), queryParam.getSecond());
+        }
+
+        ClientResponse response = getResource.accept("application/json").get(ClientResponse.class);
         if (response.getStatus() != 200) {
             throw new RuntimeException("Jersey client failed : HTTP error code : " + response.getStatus());
         }
