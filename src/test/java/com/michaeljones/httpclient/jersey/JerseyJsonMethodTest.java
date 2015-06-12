@@ -86,8 +86,10 @@ public class JerseyJsonMethodTest {
         
         JerseyJsonMethod instance = new JerseyJsonMethod();
         int expCreatedResult = 201;
-        int result = instance.PutQuery(url, queryParams);
+        StringBuilder redirectLocation = new StringBuilder();
+        int result = instance.PutQuery(url, queryParams, redirectLocation);
         assertEquals(expCreatedResult, result);
+        assertTrue(redirectLocation.toString().length() == 0);
     }
 
     /**

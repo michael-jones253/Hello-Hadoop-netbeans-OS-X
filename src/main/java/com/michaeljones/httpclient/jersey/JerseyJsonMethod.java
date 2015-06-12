@@ -46,14 +46,18 @@ public class JerseyJsonMethod implements HttpJsonMethod {
     }
     
     @Override
-    public int PutQuery(String url, List<Pair<String, String>> queryParams) {
+    public int PutQuery(String url, List<Pair<String, String>> queryParams, StringBuilder redirect) {
         WebResource putResource = jerseyImpl.resource(url);
-        for (Pair<String, String> queryParam : queryParams) {
-            putResource = putResource.queryParam(queryParam.getFirst(), queryParam.getSecond());
+        
+        if (queryParams != null) {
+            for (Pair<String, String> queryParam : queryParams) {
+                putResource = putResource.queryParam(queryParam.getFirst(), queryParam.getSecond());
+            }
         }
         
         ClientResponse putResponse = putResource.put(ClientResponse.class);
         
+        // This implementation does not append to the redirect parameter.
         return putResponse.getStatus();
     }
     

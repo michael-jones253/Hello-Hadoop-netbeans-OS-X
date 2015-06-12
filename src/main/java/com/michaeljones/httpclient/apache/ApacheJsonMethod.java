@@ -7,6 +7,7 @@ package com.michaeljones.httpclient.apache;
 
 import com.michaeljones.httpclient.HttpJsonMethod;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +25,8 @@ import org.apache.http.util.EntityUtils;
 import java.net.URISyntaxException;
 import org.apache.http.Header;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.InputStreamEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,24 +75,25 @@ public class ApacheJsonMethod implements HttpJsonMethod {
     }
 
     @Override
-    public int PutQuery(String url, List<Pair<String, String>> queryParams) {
+    public int PutQuery(String url, List<Pair<String, String>> queryParams, StringBuilder redirect) {
         try {
             HttpPut httpPut = new HttpPut();
-            URIBuilder builder = new URIBuilder(url);
+            URIBuilder fileUri = new URIBuilder(url);
 
-            for (Pair<String, String> queryParam : queryParams) {
-                builder.addParameter(queryParam.getFirst(), queryParam.getSecond());
+            if (queryParams != null) {
+                for (Pair<String, String> queryParam : queryParams) {
+                    fileUri.addParameter(queryParam.getFirst(), queryParam.getSecond());
+                }
             }
 
-            // httpPut.setURI(builder.build());
-            httpPut = new HttpPut(builder.build());
+            httpPut = new HttpPut(fileUri.build());
             CloseableHttpResponse response = clientImpl.execute(httpPut);
             try {
                 Header[] hdrs = response.getHeaders("Location");
-                if (hdrs.length > 0) {
+                if (redirect != null && hdrs.length > 0) {
                     String redirectLocation = hdrs[0].getValue();
 
-                    // FIX ME output this string as parameter.
+                    redirect.append(redirectLocation);
                     LOGGER.debug("Redirect to: " + redirectLocation);
                 }
 
@@ -106,7 +110,35 @@ public class ApacheJsonMethod implements HttpJsonMethod {
 
     @Override
     public int PutFile(String url, String filePath, List<Pair<String, String>> queryParams) throws FileNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            HttpPut httpPut = new HttpPut();
+            URIBuilder fileUri = new URIBuilder(url);
+
+            if (queryParams != null) {
+                for (Pair<String, String> queryParam : queryParams) {
+                    fileUri.addParameter(queryParam.getFirst(), queryParam.getSecond());
+                }
+            }
+
+            httpPut = new HttpPut(fileUri.build());
+            InputStream fileInStream = new FileInputStream(filePath);
+            InputStreamEntity chunkedStream = new InputStreamEntity(
+                    fileInStream, -1, ContentType.APPLICATION_OCTET_STREAM);
+            chunkedStream.setChunked(true);
+            
+            httpPut.setEntity(chunkedStream);
+
+            CloseableHttpResponse response = clientImpl.execute(httpPut);
+            try {
+                return response.getStatusLine().getStatusCode();
+            } finally {
+                // I believe this releases the connection to the client pool, but does not
+                // close the connection.
+                response.close();
+            }
+        } catch (IOException | URISyntaxException ex) {
+            throw new RuntimeException("Apache method putQuery: " + ex.getMessage());
+        }
     }
 
     @Override

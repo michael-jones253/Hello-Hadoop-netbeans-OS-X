@@ -96,7 +96,7 @@ public class HadoopHdfsRestClient {
         queryParams.add(new Pair<>("overwrite","true"));
         
         try {
-            int httpCode = restImpl.PutQuery(uri, queryParams);
+            int httpCode = restImpl.PutQuery(uri, queryParams, null);
 
             if (httpCode != 201) {
                 throw new RuntimeException("Create File failed : HTTP error code : " + httpCode);
@@ -104,7 +104,7 @@ public class HadoopHdfsRestClient {
         }
         finally {
             // We want to close TCP connections immediately, because garbage collection time
-            // is non-deterministic time.
+            // is non-deterministic.
             restImpl.Close();
         }
     }
@@ -129,7 +129,7 @@ public class HadoopHdfsRestClient {
         }
         finally {
             // We want to close TCP connections immediately, because garbage collection time
-            // is non-deterministic time.
+            // is non-deterministic.
             restImpl.Close();
         }        
     }

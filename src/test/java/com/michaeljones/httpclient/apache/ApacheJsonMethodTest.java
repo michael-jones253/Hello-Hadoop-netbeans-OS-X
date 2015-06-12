@@ -89,10 +89,19 @@ public class ApacheJsonMethodTest {
         // The Apache and Jersey clients behave differently. Jersey appears to implement
         // the "Expect: 100-continue” header correctly, but some clients (like Apache)
         // will cause a redirect. See hadoop documentation for the following workaround.
-        // int expTempRedirectResult = 201;
         int expTempRedirectResult = 307;
-        int result = instance.PutQuery(url, queryParams);
-        assertEquals(expTempRedirectResult, result);        
+        StringBuilder redirectLocation = new StringBuilder();
+        
+        // Run the first PUT on the name node to get a redirect location.
+        int result = instance.PutQuery(url, queryParams, redirectLocation);
+        assertEquals(expTempRedirectResult, result);
+        assertTrue(redirectLocation.toString().length() > 0);
+        LOGGER.info("PUT file redirect: " + redirectLocation.toString());
+        
+        // Run the second PUT on the redirect location. This location is a data node URI.
+        int expCreatedResult = 201;
+        result = instance.PutQuery(redirectLocation.toString(), null, null);
+        assertEquals(result, expCreatedResult);
     }
 
     /**
@@ -103,18 +112,29 @@ public class ApacheJsonMethodTest {
     public void testPutFile() throws Exception {
         System.out.println("PutFile");
         // Test copy of local file to HDFS.
-        String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/hello.log";
+        String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/pom.xml";
         List<Pair<String, String>> queryParams = new ArrayList();
         queryParams.add(new Pair<>("user.name","michaeljones"));
-        queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
 
         ApacheJsonMethod instance = new ApacheJsonMethod();
+                        
+        // Will cause a redirect. See hadoop documentation for the following workaround.
+        int expTempRedirectResult = 307;
+        StringBuilder redirectLocation = new StringBuilder();
+
+        // Run the first PUT on the name node to get a redirect location.
+        int result = instance.PutQuery(url, queryParams, redirectLocation);
+        assertEquals(expTempRedirectResult, result);
+        assertTrue(redirectLocation.toString().length() > 0);
+        LOGGER.info("PUT file redirect: " + redirectLocation.toString());
+        
+        // Run the second PUT on the redirect location. This location is a data node URI.
+        String localFilePath= "pom.xml";
         int expCreatedResult = 201;
-        String localFilePath= "hello.log";
-        int result = instance.PutFile(url, localFilePath, queryParams);
-        assertEquals(expCreatedResult, result);
+        result = instance.PutFile(redirectLocation.toString(), localFilePath, null);
+        assertEquals(result, expCreatedResult);    
     }
 
     /**
