@@ -109,7 +109,11 @@ public class ApacheJsonMethod implements HttpJsonMethod {
     }
 
     @Override
-    public int PutFile(String url, String filePath, List<Pair<String, String>> queryParams) throws FileNotFoundException {
+    public int PutFile(
+               String url,
+               String filePath,
+               List<Pair<String, String>> queryParams,
+               StringBuilder redirect) throws FileNotFoundException {
         try {
             HttpPut httpPut = new HttpPut();
             URIBuilder fileUri = new URIBuilder(url);
@@ -130,6 +134,14 @@ public class ApacheJsonMethod implements HttpJsonMethod {
 
             CloseableHttpResponse response = clientImpl.execute(httpPut);
             try {
+                Header[] hdrs = response.getHeaders("Location");
+                if (redirect != null && hdrs.length > 0) {
+                    String redirectLocation = hdrs[0].getValue();
+
+                    redirect.append(redirectLocation);
+                    LOGGER.debug("Redirect to: " + redirectLocation);
+                }
+
                 return response.getStatusLine().getStatusCode();
             } finally {
                 // I believe this releases the connection to the client pool, but does not

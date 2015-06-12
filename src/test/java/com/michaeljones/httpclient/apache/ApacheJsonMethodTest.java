@@ -133,7 +133,7 @@ public class ApacheJsonMethodTest {
         // Run the second PUT on the redirect location. This location is a data node URI.
         String localFilePath= "pom.xml";
         int expCreatedResult = 201;
-        result = instance.PutFile(redirectLocation.toString(), localFilePath, null);
+        result = instance.PutFile(redirectLocation.toString(), localFilePath, null, null);
         assertEquals(result, expCreatedResult);    
     }
 

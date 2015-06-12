@@ -119,6 +119,7 @@ public class HadoopHdfsRestClientTest {
 
         // Create a different file for ease of HDFS verification.
         remoteRelativePath = "hello-apache-empty.txt";
+        
         // Now test the Apache back end implementation. It should behave the same.
         instance = HadoopHdfsRestClient.ApacheClientFactory(host, username);
         instance.CreateEmptyFile(remoteRelativePath);
@@ -132,16 +133,30 @@ public class HadoopHdfsRestClientTest {
     @Test
     public void testUploadFile() {
         System.out.println("UploadFile");
+        String host = "localhost";
+        String username = "michaeljones";
+
         String remoteRelativePath = "hellohadoop.log";
         String localPath = "hellohadoop.log";
         HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(
-                "localhost",
-                "michaeljones");
+                host,
+                username);
 
         instance.UploadFile(remoteRelativePath, localPath);
 
         // If it doesn't throw an exception, consider passed.
         assertTrue(true);
+        
+        // Create a different file for ease of HDFS verification.
+        remoteRelativePath = "README.md";
+        localPath = "README.md";
+        
+        // Now test the Apache back end implementation. It should behave the same.
+        instance = HadoopHdfsRestClient.ApacheClientFactory(host, username);
+        instance.UploadFile(remoteRelativePath, localPath);
+        // If it doesn't throw an exception, consider passed.
+        assertTrue(true);
+
     }
 
     /**

@@ -100,8 +100,9 @@ public class HadoopHdfsRestClient {
 
             int httpCode = restImpl.PutQuery(uri, queryParams, redirectLocation);
             
-            // NB two separate PUTs may be needed which is not strictly REST. We keep
-            // the HTTP TCP connection open between both calls.
+            // NB two separate PUTs may be needed which is not strictly REST, but
+            // this is the Hadoop documented procedure. We keep the HTTP TCP 
+            // connection open between both calls.
             switch (httpCode) {
                 case 307:
                     // The above PUT to the Hadoop name node has returned us a redirection
@@ -143,7 +144,33 @@ public class HadoopHdfsRestClient {
         queryParams.add(new Pair<>("overwrite","true"));
 
         try {
-            int httpCode = restImpl.PutFile(uri, localPath, queryParams);
+            StringBuilder redirectLocation = new StringBuilder();
+            int httpCode = restImpl.PutFile(uri, localPath, queryParams, redirectLocation);
+            
+            // NB two separate PUTs may be needed which is not strictly REST, but
+            // this is the Hadoop documented procedure. We keep the HTTP TCP 
+            // connection open between both calls.
+            switch (httpCode) {
+                case 307:
+                    // The above PUT to the Hadoop name node has returned us a redirection
+                    // to the Hadoop data node.
+                    String dataNodeURI = redirectLocation.toString();
+                    if (dataNodeURI.length() == 0) {
+                        throw new RuntimeException("Create file redirect error");
+                    }
+                    
+                    httpCode = restImpl.PutFile(dataNodeURI, localPath, null, null);
+                    break;
+                    
+                case 201:
+                    // HTTP backends which correctly implement “Expect: 100-continue”
+                    // Will return 201 created immediately.
+                    break;
+                    
+                default:
+                    throw new RuntimeException("Create File failed : HTTP error code : " + httpCode);
+            }
+
             if (httpCode != 201) {
                 throw new RuntimeException("Create File failed : HTTP error code : " + httpCode);
             }

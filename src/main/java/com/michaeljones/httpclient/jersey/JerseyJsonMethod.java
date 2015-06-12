@@ -62,7 +62,11 @@ public class JerseyJsonMethod implements HttpJsonMethod {
     }
     
     @Override
-    public int PutFile(String url, String filePath, List<Pair<String, String>> queryParams) throws FileNotFoundException {
+    public int PutFile(
+            String url,
+            String filePath,
+            List<Pair<String, String>> queryParams,
+            StringBuilder redirect) throws FileNotFoundException {
         WebResource fileResource = jerseyImpl.resource(url);
         for (Pair<String, String> queryParam : queryParams) {
             fileResource = fileResource.queryParam(queryParam.getFirst(), queryParam.getSecond());
@@ -71,6 +75,7 @@ public class JerseyJsonMethod implements HttpJsonMethod {
         InputStream  fileInStream = new FileInputStream(filePath);
         ClientResponse response = fileResource.type(MediaType.APPLICATION_OCTET_STREAM).put(ClientResponse.class, fileInStream);
          
+        // This implementation does not append to the redirect parameter.
         return response.getStatus();
     }
 
