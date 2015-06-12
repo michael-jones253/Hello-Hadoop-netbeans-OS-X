@@ -43,8 +43,8 @@ public class HadoopHdfsRestClientTest {
     @Test
     public void testJerseyClientFactory() {
         System.out.println("JerseyClientFactory");
-        String host = "";
-        String username = "";
+        String host = "localhost";
+        String username = "michaeljones";
         HadoopHdfsRestClient result = HadoopHdfsRestClient.JerseyClientFactory(host, username);
         
         // Not a lot to test.
@@ -57,9 +57,13 @@ public class HadoopHdfsRestClientTest {
     @Test
     public void testListDirectorySimple() {
         System.out.println("ListDirectory");
+        String host = "localhost";
+        String username = "michaeljones";
+        
+        // First test the Jersey back end implementation.
         HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(
-                "localhost",
-                "michaeljones");
+                host,
+                username);
 
         // Home directory.
         String relativePath = "";
@@ -73,8 +77,23 @@ public class HadoopHdfsRestClientTest {
             if (listing.contentEquals("hello.txt")) {
                 foundHelloFile = true;
             }
-        }
+        }                
         
+        // The file is expected to have been created by the HDFS tests.
+        assertTrue(foundHelloFile);
+        
+        // Now test the Apache back end implementation. It should behave the same.
+        instance = HadoopHdfsRestClient.ApacheClientFactory(host, username);
+        directoryListing = instance.ListDirectorySimple(relativePath);
+        assertTrue(directoryListing != null);
+        assertTrue(directoryListing.length > 0);
+        
+        foundHelloFile = false;
+        for (String listing : directoryListing) {
+            if (listing.contentEquals("hello.txt")) {
+                foundHelloFile = true;
+            }
+        }                
         // The file is expected to have been created by the HDFS tests.
         assertTrue(foundHelloFile);
     }
@@ -85,13 +104,24 @@ public class HadoopHdfsRestClientTest {
     @Test
     public void testCreateEmptyFile() {
         System.out.println("CreateEmptyFile");
-        String remoteRelativePath = "hello-emtpy.txt";
-        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(
-                "localhost",
-                "michaeljones");
+        String host = "localhost";
+        String username = "michaeljones";
 
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(
+                host,
+                username);
+
+        String remoteRelativePath = "hello-jersey-emtpy.txt";
         instance.CreateEmptyFile(remoteRelativePath);
         
+        // If it doesn't throw an exception, consider passed.
+        assertTrue(true);
+
+        // Create a different file for ease of HDFS verification.
+        remoteRelativePath = "hello-apache-empty.txt";
+        // Now test the Apache back end implementation. It should behave the same.
+        instance = HadoopHdfsRestClient.ApacheClientFactory(host, username);
+        instance.CreateEmptyFile(remoteRelativePath);
         // If it doesn't throw an exception, consider passed.
         assertTrue(true);
     }
@@ -112,6 +142,20 @@ public class HadoopHdfsRestClientTest {
 
         // If it doesn't throw an exception, consider passed.
         assertTrue(true);
+    }
+
+    /**
+     * Test of ApacheClientFactory method, of class HadoopHdfsRestClient.
+     */
+    @Test
+    public void testApacheClientFactory() {
+        System.out.println("ApacheClientFactory");
+        String host = "localhost";
+        String username = "michaeljones";
+        HadoopHdfsRestClient result = HadoopHdfsRestClient.ApacheClientFactory(host, username);
+        
+        // Not a lot to test.
+        assertTrue(result != null);
     }
     
 }

@@ -96,7 +96,32 @@ public class HadoopHdfsRestClient {
         queryParams.add(new Pair<>("overwrite","true"));
         
         try {
-            int httpCode = restImpl.PutQuery(uri, queryParams, null);
+            StringBuilder redirectLocation = new StringBuilder();
+
+            int httpCode = restImpl.PutQuery(uri, queryParams, redirectLocation);
+            
+            // NB two separate PUTs may be needed which is not strictly REST. We keep
+            // the HTTP TCP connection open between both calls.
+            switch (httpCode) {
+                case 307:
+                    // The above PUT to the Hadoop name node has returned us a redirection
+                    // to the Hadoop data node.
+                    String dataNodeURI = redirectLocation.toString();
+                    if (dataNodeURI.length() == 0) {
+                        throw new RuntimeException("Create file redirect error");
+                    }
+                    
+                    httpCode = restImpl.PutQuery(dataNodeURI, null, null);
+                    break;
+                    
+                case 201:
+                    // HTTP backends which correctly implement “Expect: 100-continue”
+                    // Will return 201 created immediately.
+                    break;
+                    
+                default:
+                    throw new RuntimeException("Create File failed : HTTP error code : " + httpCode);
+            }
 
             if (httpCode != 201) {
                 throw new RuntimeException("Create File failed : HTTP error code : " + httpCode);
