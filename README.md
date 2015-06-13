@@ -10,7 +10,11 @@ This is work in progress and so far the following functionality is demonstrated:
 
 1. Direct programmatic control of the HDFS and running map reduce jobs - all unit tests run from the IDE with hadoop configuration built into this project and under git control.
 2. Uploading of files to the HDFS by implementing a Web REST API client.
-3. Layered application code for maximum re-use and ease of test driven development. The client I wrote uses an interface which has allowed me to provide both a Jersey HTTP client implementation and an Apache HTTP client implementation for comparison between the two toolkits.
+3. Async file upload (at time of writing only Jersey back end implemented).
+4. Layered application code for maximum re-use and ease of test driven development. The client I wrote uses an interface which has allowed me to provide both a Jersey HTTP client implementation and an Apache HTTP client implementation for comparison between the two toolkits.
+5. Test driven development.
+
+## Getting started
 
 The initial difficulty was working out how to run the program in the IDE and talk to the local pseudo distributed setup without using a 3rd party Hadoop plugin. Apparently there used to be a plugin for netbeans, but it has been discontinued. I am a newbie with this technology.
 
@@ -98,5 +102,7 @@ The WebHDFS REST API documentation which came with the installation specifies th
 However, the 2 stage PUT not being REST seems to be a moot point, at least with the Jersey client. I do not get a redirection and a file creates/uploads all in one go.
 
 Since writing the above paragraph I have implemented the Apache Client back end option to my HDFS Web client interface and this client behaves differently. It does indeed cause a redirect as per Hadoop documentation. The follow up PUT to the redirected location with the chunked file stream works as per documentation.
+
+Since writing the above paragraph I have implemented a big chunk size setting for the HTTP chunking and this changed the behaviour of the Jersey client to always redirect. It might be that unless the chunk size option is set then the Jersey implementation does not chunk - this would be terrible for big files.
 
 To be continued ...
