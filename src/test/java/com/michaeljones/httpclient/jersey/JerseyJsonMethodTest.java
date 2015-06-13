@@ -6,6 +6,7 @@
 package com.michaeljones.httpclient.jersey;
 
 import com.michaeljones.hellohadoopworldmaven.HelloHdfsTest;
+import com.michaeljones.httpclient.HttpMethodFuture;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.math3.util.Pair;
@@ -105,7 +106,6 @@ public class JerseyJsonMethodTest {
         List<Pair<String, String>> queryParams = new ArrayList();
         queryParams.add(new Pair<>("user.name","michaeljones"));
         queryParams.add(new Pair<>("op","CREATE"));
-        queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
         
         JerseyJsonMethod instance = new JerseyJsonMethod();
@@ -116,6 +116,7 @@ public class JerseyJsonMethodTest {
         assertEquals(expCreatedResult, result);
         
         // I am not sure why we get a redirect location on the IPC 9000 port, but we do.
+        // NB the http status code still returns created.
         assertTrue(redirectLocation.indexOf(":9000") > 0);
         LOGGER.info("Jersey redirected to IPC: " + redirectLocation);
     }
@@ -167,6 +168,40 @@ public class JerseyJsonMethodTest {
         
         // Not a lot to test.
         assertTrue(true);
+    }
+
+    /**
+     * Test of PutFileAsync method, of class JerseyJsonMethod.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testPutFileAsync() throws Exception {
+        // First of all get the redirect.
+        // Same as creation of empty file on HDFS.
+        String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/nbactions.xml";
+        List<Pair<String, String>> queryParams = new ArrayList();
+        queryParams.add(new Pair<>("user.name","michaeljones"));
+        queryParams.add(new Pair<>("op","CREATE"));
+        queryParams.add(new Pair<>("op","CREATE"));
+        queryParams.add(new Pair<>("overwrite","true"));
+        
+        JerseyJsonMethod instance = new JerseyJsonMethod();
+        
+        // This is important - without this the Jersey client does not redirect.
+        instance.SetBigChunkSize();
+
+        int expRedirectResult = 307;
+        StringBuilder redirectLocation = new StringBuilder();
+        String localFilePath = "nbactions.xml";
+        int result = instance.PutFile(url, localFilePath, queryParams, redirectLocation);
+        assertEquals(expRedirectResult, result);
+        assertTrue(redirectLocation.toString().length() > 0);
+
+        System.out.println("PutFileAsync");
+        
+        int expCreatedResult = 201;
+        HttpMethodFuture future = instance.PutFileAsync(redirectLocation.toString(), localFilePath);
+        assertEquals(expCreatedResult, future.GetHttpStatusCode());
     }
     
 }

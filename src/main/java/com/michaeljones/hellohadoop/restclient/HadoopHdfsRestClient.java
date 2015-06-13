@@ -11,8 +11,6 @@ import com.michaeljones.httpclient.jersey.JerseyJsonMethod;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.math3.util.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

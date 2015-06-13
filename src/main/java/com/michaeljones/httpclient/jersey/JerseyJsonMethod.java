@@ -6,7 +6,9 @@
 package com.michaeljones.httpclient.jersey;
 
 import com.michaeljones.httpclient.HttpJsonMethod;
+import com.michaeljones.httpclient.HttpMethodFuture;
 import com.michaeljones.httpclient.apache.ApacheJsonMethod;
+import com.sun.jersey.api.client.AsyncWebResource;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -16,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import org.apache.commons.math3.util.Pair;
@@ -129,6 +132,20 @@ public class JerseyJsonMethod implements HttpJsonMethod {
 
         // This implementation does not append to the redirect parameter.
         return response.getStatus();
+    }
+    
+    public HttpMethodFuture PutFileAsync(String redirectUrl, String filePath) throws FileNotFoundException {
+        // NB this method has to be preceded by a put of the file URI returning a redirection.
+        // This is not strictly REST, but it is the way Hadoop works.
+        AsyncWebResource fileResource = jerseyImpl.asyncResource(redirectUrl);
+        InputStream fileInStream = new FileInputStream(filePath);
+
+        AsyncWebResource.Builder request = fileResource.getRequestBuilder();
+        request = request.entity(fileInStream, MediaType.APPLICATION_OCTET_STREAM);
+        
+        Future<ClientResponse> future = request.put(ClientResponse.class);
+        
+        return new HttpJerseyFuture(future);
     }
 
     @Override
