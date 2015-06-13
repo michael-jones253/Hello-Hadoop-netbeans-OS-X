@@ -62,7 +62,7 @@ public class ApacheJsonMethodTest {
         
         // List does not require username and password query parameters.
         queryParams.add(new Pair<>("op","LISTSTATUS"));
-        JerseyJsonMethod instance = new JerseyJsonMethod();
+        ApacheJsonMethod instance = new ApacheJsonMethod();
         String result = instance.GetStringContent(url, queryParams);
         
         LOGGER.info("Apache client testGetStringContent");

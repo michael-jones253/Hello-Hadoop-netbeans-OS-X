@@ -116,5 +116,54 @@ public class JerseyJsonMethodTest {
         assertEquals(expCreatedResult, result);
         assertTrue(redirectLocation.length() == 0);
     }
+
+    /**
+     * Test of PutFileAlternative method, of class JerseyJsonMethod.
+     */
+    @Test
+    public void testPutFileAlternative() throws Exception {
+        System.out.println("PutFileAlternative");
+        // Test copy of local file to HDFS.
+        String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/hello.log";
+        List<Pair<String, String>> queryParams = new ArrayList();
+        queryParams.add(new Pair<>("user.name","michaeljones"));
+        queryParams.add(new Pair<>("op","CREATE"));
+        queryParams.add(new Pair<>("op","CREATE"));
+        queryParams.add(new Pair<>("overwrite","true"));
+        
+        JerseyJsonMethod instance = new JerseyJsonMethod();
+        int expCreatedResult = 201;
+        String localFilePath= "hello.log";
+        StringBuilder redirectLocation = new StringBuilder();
+        int result = instance.PutFileAlternative(url, localFilePath, queryParams, redirectLocation);
+        assertEquals(expCreatedResult, result);
+        assertTrue(redirectLocation.length() == 0);
+    }
+
+    /**
+     * Test of Close method, of class JerseyJsonMethod.
+     */
+    @Test
+    public void testClose() {
+        System.out.println("Close");
+        JerseyJsonMethod instance = new JerseyJsonMethod();
+        instance.Close();
+        
+        // Not a lot to test.
+        assertTrue(true);
+    }
+
+    /**
+     * Test of SetBigChunkSize method, of class JerseyJsonMethod.
+     */
+    @Test
+    public void testSetBigChunkSize() {
+        System.out.println("SetBigChunkSize");
+        JerseyJsonMethod instance = new JerseyJsonMethod();
+        instance.SetBigChunkSize();
+        
+        // Not a lot to test.
+        assertTrue(true);
+    }
     
 }
