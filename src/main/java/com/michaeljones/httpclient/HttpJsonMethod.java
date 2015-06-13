@@ -24,6 +24,8 @@ public interface HttpJsonMethod {
             List<Pair<String, String>> queryParams,
             StringBuilder redirectLocation) throws FileNotFoundException;
     
+    void SetBigChunkSize();
+    
     void Close();
 
 }

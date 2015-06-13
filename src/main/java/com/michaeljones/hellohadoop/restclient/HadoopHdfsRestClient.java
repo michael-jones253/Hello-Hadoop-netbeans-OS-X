@@ -18,6 +18,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -27,6 +28,8 @@ public class HadoopHdfsRestClient {
     
     // %1 host, %2 username %3 resource.
     private static final String  BASIC_URL_FORMAT = "http://%1$s:50070/webhdfs/v1/user/%2$s/%3$s";
+    
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ApacheJsonMethod.class.getName());
 
     private HttpJsonMethod restImpl;
     private String host;
@@ -78,9 +81,8 @@ public class HadoopHdfsRestClient {
             
             return directoryListing;
         } catch (ParseException ex) {
-            // FIX ME logger to sl4j.
-            Logger.getLogger(HadoopHdfsRestClient.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException("List directory failed :" + ex.getMessage());
+            LOGGER.error("Hadoop List directory failed: " + ex.getMessage());
+            throw new RuntimeException("Hadoop List directory failed :" + ex.getMessage());
         }
         finally {
             restImpl.Close();
@@ -154,6 +156,7 @@ public class HadoopHdfsRestClient {
                     // to the Hadoop data node.
                     String dataNodeURI = redirectLocation.toString();
                     if (dataNodeURI.length() == 0) {
+                        LOGGER.error("Hadoop redirect location empty");
                         throw new RuntimeException("Create file redirect error");
                     }
                     
@@ -173,8 +176,7 @@ public class HadoopHdfsRestClient {
                 throw new RuntimeException("Create File failed : HTTP error code : " + httpCode);
             }
         } catch (FileNotFoundException ex) {
-            // FIX ME logger to sl4j.
-            Logger.getLogger(HadoopHdfsRestClient.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error("Hadoop upload file not found: " + ex.getMessage());
             throw new RuntimeException("Create File failed : " + ex.getMessage());
         }
         finally {
@@ -182,5 +184,9 @@ public class HadoopHdfsRestClient {
             // is non-deterministic.
             restImpl.Close();
         }        
+    }
+    
+    public void SetBigChunkSize() {
+        restImpl.SetBigChunkSize();
     }
 }

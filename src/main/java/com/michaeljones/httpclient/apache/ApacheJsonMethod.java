@@ -6,12 +6,10 @@
 package com.michaeljones.httpclient.apache;
 
 import com.michaeljones.httpclient.HttpJsonMethod;
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 import org.apache.commons.math3.util.Pair;
 import org.apache.http.HttpEntity;
@@ -119,6 +117,8 @@ public class ApacheJsonMethod implements HttpJsonMethod {
             URIBuilder fileUri = new URIBuilder(url);
 
             if (queryParams != null) {
+                // Query params are optional. In the case of a redirect the url will contain
+                // all the params.
                 for (Pair<String, String> queryParam : queryParams) {
                     fileUri.addParameter(queryParam.getFirst(), queryParam.getSecond());
                 }
@@ -161,6 +161,11 @@ public class ApacheJsonMethod implements HttpJsonMethod {
         } catch (IOException ex) {
             throw new RuntimeException("Jersey client close : " + ex.getMessage());
         }
+    }
+
+    @Override
+    public void SetBigChunkSize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

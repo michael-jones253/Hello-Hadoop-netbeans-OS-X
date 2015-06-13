@@ -147,6 +147,18 @@ public class HadoopHdfsRestClientTest {
         // If it doesn't throw an exception, consider passed.
         assertTrue(true);
         
+        // Now test with setting a big chunk size.
+        instance.SetBigChunkSize();
+        
+        // Create a different file for ease of HDFS verification.
+        remoteRelativePath = "hello.log.2015-06-12";
+        localPath = "hello.log.2015-06-12";
+        
+        instance.UploadFile(remoteRelativePath, localPath);
+
+        // If it doesn't throw an exception, consider passed.
+        assertTrue(true);
+        
         // Create a different file for ease of HDFS verification.
         remoteRelativePath = "README.md";
         localPath = "README.md";
@@ -155,7 +167,7 @@ public class HadoopHdfsRestClientTest {
         instance = HadoopHdfsRestClient.ApacheClientFactory(host, username);
         instance.UploadFile(remoteRelativePath, localPath);
         // If it doesn't throw an exception, consider passed.
-        assertTrue(true);
+        assertTrue(true);                
 
     }
 
