@@ -177,11 +177,9 @@ public class JerseyJsonMethodTest {
     @Test
     public void testPutFileAsync() throws Exception {
         // First of all get the redirect.
-        // Same as creation of empty file on HDFS.
         String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/nbactions.xml";
         List<Pair<String, String>> queryParams = new ArrayList();
         queryParams.add(new Pair<>("user.name","michaeljones"));
-        queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
         
@@ -190,6 +188,8 @@ public class JerseyJsonMethodTest {
         // This is important - without this the Jersey client does not redirect.
         instance.SetBigChunkSize();
 
+        // This bit is not async. However, it should be a quick round trip to the name node
+        // to return us the redirect URL on which we perform the async method.
         int expRedirectResult = 307;
         StringBuilder redirectLocation = new StringBuilder();
         String localFilePath = "nbactions.xml";
@@ -199,6 +199,8 @@ public class JerseyJsonMethodTest {
 
         System.out.println("PutFileAsync");
         
+        // If we got this far then a redirect url was returned and we do the async upload to this.
+        // This is the time consuming part and the where we stand to gain from the async.
         int expCreatedResult = 201;
         HttpMethodFuture future = instance.PutFileAsync(redirectLocation.toString(), localFilePath);
         assertEquals(expCreatedResult, future.GetHttpStatusCode());

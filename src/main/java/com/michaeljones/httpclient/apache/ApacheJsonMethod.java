@@ -6,6 +6,7 @@
 package com.michaeljones.httpclient.apache;
 
 import com.michaeljones.httpclient.HttpJsonMethod;
+import com.michaeljones.httpclient.HttpMethodFuture;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -165,6 +166,13 @@ public class ApacheJsonMethod implements HttpJsonMethod {
 
     @Override
     public void SetBigChunkSize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HttpMethodFuture PutFileAsync(String redirectUrl, String filePath) throws FileNotFoundException {
+        
+        // Please see the JerseyJsonMethod implementation for how this is intended to work.
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

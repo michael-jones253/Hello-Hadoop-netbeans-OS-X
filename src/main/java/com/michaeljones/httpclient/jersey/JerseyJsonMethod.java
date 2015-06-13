@@ -134,6 +134,7 @@ public class JerseyJsonMethod implements HttpJsonMethod {
         return response.getStatus();
     }
     
+    @Override
     public HttpMethodFuture PutFileAsync(String redirectUrl, String filePath) throws FileNotFoundException {
         // NB this method has to be preceded by a put of the file URI returning a redirection.
         // This is not strictly REST, but it is the way Hadoop works.
