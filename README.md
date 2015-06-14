@@ -11,8 +11,67 @@ This is work in progress and so far the following functionality is demonstrated:
 1. Direct programmatic control of the HDFS and running map reduce jobs - all unit tests run from the IDE with hadoop configuration built into this project and under git control.
 2. Uploading of files to the HDFS by implementing a Web REST API client.
 3. Async file upload (at time of writing only Jersey back end implemented).
-4. Layered application code for maximum re-use and ease of test driven development. The client I wrote uses an interface which has allowed me to provide both a Jersey HTTP client implementation and an Apache HTTP client implementation for comparison between the two toolkits.
-5. Test driven development.
+4. Parallel/concurrent file upload of multiple files potentially to multiple data nodes
+5. Layered application code for maximum re-use and ease of test driven development. The client I wrote uses an interface which has allowed me to provide both a Jersey HTTP client implementation and an Apache HTTP client implementation for comparison between the two toolkits.
+6. Test driven development.
+
+## The most interesting code
+
+This is the concurrent (parallel on a multi-homed cluster) file upload from some storage server to the Hadoop data nodes. This code is working under unit test in a pseudo distributed configuration.
+
+The easiest way to follow this code is to start with the unit test file HadoopHdfsRestClientTest.java and see how the following method is called. Then follow the layers through the interface down into the jersey client implementation.
+
+Uploading to Hadoop via Web REST is a two stage process where first a PUT call to the name node is made to get a redirect location to the datanode. Then a PUT call to the datanode redirect location with the chunked file stream.
+
+In the situation where the source files are going out on a single network connection one might wonder if anything can be gained from a concurrent file upload. However theoretically there is something to be gained, because some TCP file transfer protocols achieve speed by splitting files over multiple socket connections. So in the situation where we have multiple HTTP connections (one for each file), then we are achieving something similar.
+
+The reason why multiple connections can be faster than one is because multiple connections achieve a quicker aggregate ramp up time during the TCP "slow start". On a good connection the gains are limited, because there will be only one ramp up at the start. However, across the internet under congestion slow starts may occur repeatedly during the duration of a connection. Another reason is that if some packet loss occurs, it is possible that the loss might only hit one connection in which case only one connection is throttled from the TCP congestion control.
+
+<pre><code>
+    public void ParallelUpload(List<Pair<String, String>> remoteLocalPairs) {
+        // First of all do a concurrent gathering of the redirect locations from the name node.
+        // Does this help if all calls are going to the same name node?
+        // Answer: a little, because we are performing multiple round trips concurrently. Packets
+        // are of course interleaved, but we are not individually blocking on each round trip interval.
+        List<HttpMethodFuture> redirectFutures = new ArrayList();
+        for (Pair<String, String> remoteLocal : remoteLocalPairs) {
+            HttpMethodFuture redirect = GetRedirectLocationAsync(remoteLocal.getFirst(), remoteLocal.getSecond());
+            redirectFutures.add(redirect);
+        }
+
+        // Now retrieve the redirect locations from the futures and make a new list
+        // of redirect, local path pairs. This will take as long as the longest redirect retrieval.
+        List<Pair<String, String>> redirectLocalPairs = new ArrayList();
+        for (HttpMethodFuture redirect : redirectFutures) {
+            // This may block depending on whether any of the preceding futures took longer or not.
+            String redirectLocation = redirect.GetRedirectLocation();
+            String localPath = remoteLocalPairs.get(0).getSecond();
+            redirectLocalPairs.add(new Pair<>(redirectLocation, localPath));
+        }
+        
+        List<HttpMethodFuture> uploadFutures = new ArrayList();
+
+        // The final step is to perform a concurrent/parallel upload to the data nodes.
+        // In a multi-homed cluster these could be going out on separate interfaces.
+        // The bottleneck would then be the file storage. If some source paths were coming from
+        // different file servers then we would really win with this strategy.
+        for (Pair<String, String> redirectLocal : redirectLocalPairs) {
+            HttpMethodFuture future = UploadFileAsync(redirectLocal.getFirst(), redirectLocal.getSecond());
+            uploadFutures.add(future);
+        }
+        
+        // Now wait for all uploads to complete. This will take as long as the
+        // longest upload.
+        for (HttpMethodFuture upload : uploadFutures) {
+            // This may block depending on whether any previous futures took longer or not.
+            int httpStatusCode = upload.GetHttpStatusCode();
+            if (httpStatusCode != 201) {
+                // Should really log which file.
+                LOGGER.error("Hadoop parallel upload unexpected status: " + httpStatusCode);                
+            }
+        }
+    }
+</pre></code>
 
 ## Getting started
 
