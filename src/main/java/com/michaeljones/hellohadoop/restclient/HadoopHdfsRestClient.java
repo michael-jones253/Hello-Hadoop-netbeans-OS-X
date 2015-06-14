@@ -25,17 +25,17 @@ import org.slf4j.LoggerFactory;
  */
 public class HadoopHdfsRestClient {
     
-    // %1 dataNodeHost, %2 username %3 resource.
+    // %1 nameNodeHost, %2 username %3 resource.
     private static final String  BASIC_URL_FORMAT = "http://%1$s:50070/webhdfs/v1/user/%2$s/%3$s";
     
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ApacheJsonMethod.class.getName());
 
     private HttpJsonMethod restImpl;
-    private final String dataNodeHost;
+    private final String nameNodeHost;
     private final String username;
 
     private HadoopHdfsRestClient(String host, String username) {
-        this.dataNodeHost = host;
+        this.nameNodeHost = host;
         this.username = username;
     }
 
@@ -57,8 +57,8 @@ public class HadoopHdfsRestClient {
 
     public String[] ListDirectorySimple(String remoteRelativePath) {
         try {
-            // %1 dataNodeHost, %2 username %3 resource.
-            String uri = String.format(BASIC_URL_FORMAT, dataNodeHost, username, remoteRelativePath);
+            // %1 nameNodeHost, %2 username %3 resource.
+            String uri = String.format(BASIC_URL_FORMAT, nameNodeHost, username, remoteRelativePath);
             List<Pair<String, String>> queryParams = new ArrayList();
             queryParams.add(new Pair<>("user.name","michaeljones"));
             queryParams.add(new Pair<>("op","LISTSTATUS"));
@@ -89,8 +89,8 @@ public class HadoopHdfsRestClient {
     }
     
     public void CreateEmptyFile(String remoteRelativePath) {
-        // %1 dataNodeHost, %2 username %3 resource.
-        String uri = String.format(BASIC_URL_FORMAT, dataNodeHost, username, remoteRelativePath);
+        // %1 nameNodeHost, %2 username %3 resource.
+        String uri = String.format(BASIC_URL_FORMAT, nameNodeHost, username, remoteRelativePath);
         List<Pair<String, String>> queryParams = new ArrayList();
         queryParams.add(new Pair<>("user.name","michaeljones"));
         queryParams.add(new Pair<>("op","CREATE"));
@@ -136,8 +136,8 @@ public class HadoopHdfsRestClient {
     }
     
     public void UploadFile(String remoteRelativePath, String localPath) {
-        // %1 dataNodeHost, %2 username %3 resource.
-        String uri = String.format(BASIC_URL_FORMAT, dataNodeHost, username, remoteRelativePath);
+        // %1 nameNodeHost, %2 username %3 resource.
+        String uri = String.format(BASIC_URL_FORMAT, nameNodeHost, username, remoteRelativePath);
         List<Pair<String, String>> queryParams = new ArrayList();
         queryParams.add(new Pair<>("user.name","michaeljones"));
         queryParams.add(new Pair<>("op","CREATE"));
@@ -186,18 +186,18 @@ public class HadoopHdfsRestClient {
     }
     
     public void ParallelUpload(List<Pair<String, String>> remoteLocalPairs) {
-        // First of all do a concurrent gathering of the redirections from the name node.
-        // Does this help if we are all going to the same name node?
-        // Answer: yes because we are performing multiple round trips concurrently. Packets
-        // are of course interleaved, but we are not blocking on the round trip interval.
+        // First of all do a concurrent gathering of the redirect locations from the name node.
+        // Does this help if all calls are going to the same name node?
+        // Answer: a little, because we are performing multiple round trips concurrently. Packets
+        // are of course interleaved, but we are not individually blocking on each round trip interval.
         List<HttpMethodFuture> redirectFutures = new ArrayList();
         for (Pair<String, String> remoteLocal : remoteLocalPairs) {
             HttpMethodFuture redirect = GetRedirectLocationAsync(remoteLocal.getFirst(), remoteLocal.getSecond());
             redirectFutures.add(redirect);
         }
 
-        // Now make a new list of redirect, local path pairs. This will take as long as the
-        // longest redirect retrieval.
+        // Now retrieve the redirect locations from the futures and make a new list
+        // of redirect, local path pairs. This will take as long as the longest redirect retrieval.
         List<Pair<String, String>> redirectLocalPairs = new ArrayList();
         for (HttpMethodFuture redirect : redirectFutures) {
             // This may block depending on whether any of the preceding futures took longer or not.
@@ -210,7 +210,7 @@ public class HadoopHdfsRestClient {
 
         // The final step is to perform a concurrent/parallel upload to the data nodes.
         // In a multi-homed cluster these could be going out on separate interfaces.
-        // The bottleneck would then be the file storage. If some "local" paths were coming from
+        // The bottleneck would then be the file storage. If some source paths were coming from
         // different file servers then we would really win with this strategy.
         for (Pair<String, String> redirectLocal : redirectLocalPairs) {
             HttpMethodFuture future = UploadFileAsync(redirectLocal.getFirst(), redirectLocal.getSecond());
@@ -230,8 +230,8 @@ public class HadoopHdfsRestClient {
     }
 
     public HttpMethodFuture GetRedirectLocationAsync(String remoteRelativePath, String localPath) {
-        // %1 dataNodeHost, %2 username %3 resource.
-        String uri = String.format(BASIC_URL_FORMAT, dataNodeHost, username, remoteRelativePath);
+        // %1 nameNodeHost, %2 username %3 resource.
+        String uri = String.format(BASIC_URL_FORMAT, nameNodeHost, username, remoteRelativePath);
         List<Pair<String, String>> queryParams = new ArrayList();
         queryParams.add(new Pair<>("user.name","michaeljones"));
         queryParams.add(new Pair<>("op","CREATE"));
