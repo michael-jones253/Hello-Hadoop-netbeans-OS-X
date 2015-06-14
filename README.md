@@ -11,9 +11,12 @@ This is work in progress and so far the following functionality is demonstrated:
 1. Direct programmatic control of the HDFS and running map reduce jobs - all unit tests run from the IDE with hadoop configuration built into this project and under git control.
 2. Uploading of files to the HDFS by implementing a Web REST API client.
 3. Async file upload (at time of writing only Jersey back end implemented).
-4. Parallel/concurrent file upload of multiple files potentially to multiple data nodes
-5. Layered application code for maximum re-use and ease of test driven development. The client I wrote uses an interface which has allowed me to provide both a Jersey HTTP client implementation and an Apache HTTP client implementation for comparison between the two toolkits.
-6. Test driven development.
+4. Parallel/concurrent file upload of multiple files potentially to multiple data nodes.
+
+The following development principles:
+
+1. Layered application code for maximum re-use and ease of test driven development. The client I wrote uses an interface which has allowed me to provide both a Jersey HTTP client implementation and an Apache HTTP client implementation for comparison between the two toolkits.
+2. Test driven development.
 
 ## The most interesting code
 
