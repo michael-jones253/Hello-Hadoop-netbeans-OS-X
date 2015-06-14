@@ -176,4 +176,9 @@ public class ApacheJsonMethod implements HttpJsonMethod {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public HttpMethodFuture GetRedirectLocationAsync(String url, String filePath, List<Pair<String, String>> queryParams) throws FileNotFoundException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

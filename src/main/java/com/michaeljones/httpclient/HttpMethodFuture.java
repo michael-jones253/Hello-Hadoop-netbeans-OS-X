@@ -11,4 +11,6 @@ package com.michaeljones.httpclient;
  */
 public interface HttpMethodFuture {
     int GetHttpStatusCode();
+    
+    String GetRedirectLocation();
 }

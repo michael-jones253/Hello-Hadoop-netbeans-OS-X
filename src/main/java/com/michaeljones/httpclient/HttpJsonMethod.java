@@ -25,6 +25,11 @@ public interface HttpJsonMethod {
             List<Pair<String, String>> queryParams,
             StringBuilder redirectLocation) throws FileNotFoundException;
 
+    HttpMethodFuture GetRedirectLocationAsync(
+            String url,
+            String filePath,
+            List<Pair<String, String>> queryParams) throws FileNotFoundException;
+
     HttpMethodFuture PutFileAsync(String redirectUrl, String filePath) throws FileNotFoundException;
 
     void SetBigChunkSize();

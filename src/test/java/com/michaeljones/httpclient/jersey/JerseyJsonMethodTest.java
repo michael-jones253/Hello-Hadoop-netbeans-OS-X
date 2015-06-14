@@ -189,7 +189,8 @@ public class JerseyJsonMethodTest {
         instance.SetBigChunkSize();
 
         // This bit is not async. However, it should be a quick round trip to the name node
-        // to return us the redirect URL on which we perform the async method.
+        // to return us the redirect URL on which we perform the async method. See below for
+        // async get of redirect URL.
         int expRedirectResult = 307;
         StringBuilder redirectLocation = new StringBuilder();
         String localFilePath = "nbactions.xml";
@@ -204,6 +205,38 @@ public class JerseyJsonMethodTest {
         int expCreatedResult = 201;
         HttpMethodFuture future = instance.PutFileAsync(redirectLocation.toString(), localFilePath);
         assertEquals(expCreatedResult, future.GetHttpStatusCode());
+    }
+
+    /**
+     * Test of GetRedirectLocationAsync method, of class JerseyJsonMethod.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testGetRedirectLocationAsync() throws Exception {
+        System.out.println("GetRedirectLocationAsync");
+        String localFilePath = "nbactions.xml";
+        
+        // Get the redirect for the following location.
+        String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/nbactions.xml";
+        List<Pair<String, String>> queryParams = new ArrayList();
+        queryParams.add(new Pair<>("user.name","michaeljones"));
+        queryParams.add(new Pair<>("op","CREATE"));
+        queryParams.add(new Pair<>("overwrite","true"));
+        
+        JerseyJsonMethod instance = new JerseyJsonMethod();
+        
+        // This is important - without this the Jersey client does not redirect.
+        instance.SetBigChunkSize();
+
+        HttpMethodFuture futureResult = instance.GetRedirectLocationAsync(url, localFilePath, queryParams);
+        String redirectLocation = futureResult.GetRedirectLocation();
+        
+        // Check that the redirected URI is for the data node port.
+        assertTrue(redirectLocation.contains("50075"));
+
+        // Check that the redirected URI has query param for create.
+        assertTrue(redirectLocation.contains("op=CREATE"));
+        LOGGER.info("Get redirect location async: " + redirectLocation);
     }
     
 }

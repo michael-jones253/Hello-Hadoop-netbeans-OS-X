@@ -6,11 +6,14 @@
 package com.michaeljones.hellohadoop.restclient;
 
 import com.michaeljones.httpclient.HttpJsonMethod;
+import com.michaeljones.httpclient.HttpMethodFuture;
 import com.michaeljones.httpclient.apache.ApacheJsonMethod;
 import com.michaeljones.httpclient.jersey.JerseyJsonMethod;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.math3.util.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -175,6 +178,37 @@ public class HadoopHdfsRestClient {
             }
         } catch (FileNotFoundException ex) {
             LOGGER.error("Hadoop upload file not found: " + ex.getMessage());
+            throw new RuntimeException("Create File failed : " + ex.getMessage());
+        }
+        finally {
+            // We want to close TCP connections immediately, because garbage collection time
+            // is non-deterministic.
+            restImpl.Close();
+        }        
+    }
+
+    public HttpMethodFuture GetRedirectLocationAsync(String remoteRelativePath, String localPath) {
+        // %1 host, %2 username %3 resource.
+        String uri = String.format(BASIC_URL_FORMAT, host, username, remoteRelativePath);
+        List<Pair<String, String>> queryParams = new ArrayList();
+        queryParams.add(new Pair<>("user.name","michaeljones"));
+        queryParams.add(new Pair<>("op","CREATE"));
+        queryParams.add(new Pair<>("overwrite","true"));
+        
+        try {        
+            return restImpl.GetRedirectLocationAsync(uri, localPath, queryParams);
+        } catch (FileNotFoundException ex) {
+            LOGGER.error("Hadoop get redirect location async file not found: " + ex.getMessage());
+            throw new RuntimeException("Create File failed : " + ex.getMessage());
+        }
+    }
+    
+    public HttpMethodFuture UploadFileAsync(String redirectLocation, String localPath) {
+
+        try {
+            return restImpl.PutFileAsync(redirectLocation, localPath);
+        } catch (FileNotFoundException ex) {
+            LOGGER.error("Hadoop async upload file not found: " + ex.getMessage());
             throw new RuntimeException("Create File failed : " + ex.getMessage());
         }
         finally {

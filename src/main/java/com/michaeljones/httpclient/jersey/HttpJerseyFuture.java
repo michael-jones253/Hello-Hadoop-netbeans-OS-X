@@ -5,11 +5,13 @@
  */
 package com.michaeljones.httpclient.jersey;
 
-import java.io.IOException;
 import com.michaeljones.httpclient.HttpMethodFuture;
 import com.sun.jersey.api.client.ClientResponse;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
+import javax.ws.rs.core.MultivaluedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,4 +36,31 @@ public class HttpJerseyFuture implements HttpMethodFuture {
             throw new RuntimeException(ex.getMessage());
         }
     }    
+
+    @Override
+    public String GetRedirectLocation() {
+        try {
+            ClientResponse response = jerseyFuture.get();
+            MultivaluedMap<String, String> headers = response.getHeaders();
+            try {
+                List<String> hdrs = headers.get("Location");
+                if (hdrs.size() > 0) {
+                    String redirectLocation = hdrs.get(0);
+
+                    LOGGER.debug("Jersey client Redirect to: " + redirectLocation);
+                    return redirectLocation;
+                }
+
+            } finally {
+                // I believe this releases the connection to the client pool, but does not
+                // close the connection.
+                response.close();
+            }
+        } catch (InterruptedException | ExecutionException ex) {
+            LOGGER.error("Jersey Future: " + ex.getMessage());
+            throw new RuntimeException(ex.getMessage());
+        }
+
+        throw new RuntimeException("Future had no redirect location");
+    }
 }

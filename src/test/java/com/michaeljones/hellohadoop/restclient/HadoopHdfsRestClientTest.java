@@ -5,6 +5,7 @@
  */
 package com.michaeljones.hellohadoop.restclient;
 
+import com.michaeljones.httpclient.HttpMethodFuture;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -183,6 +184,68 @@ public class HadoopHdfsRestClientTest {
         
         // Not a lot to test.
         assertTrue(result != null);
+    }
+
+    /**
+     * Test of GetRedirectLocationAsync method, of class HadoopHdfsRestClient.
+     */
+    @Test
+    public void testGetRedirectLocationAsync() {
+        System.out.println("GetRedirectLocationAsync");
+        String remoteRelativePath = "nbactions.xml";
+        String localPath = "nbactions.xml";
+        String host = "localhost";
+        String username = "michaeljones";
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(host, username);
+        instance.SetBigChunkSize();
+        
+        HttpMethodFuture futureResult = instance.GetRedirectLocationAsync(remoteRelativePath, localPath);
+        String redirectLocation = futureResult.GetRedirectLocation();
+        // Check that the redirected URI is for the data node port.
+        assertTrue(redirectLocation.contains("50075"));
+
+        // Check that the redirected URI has query param for create.
+        assertTrue(redirectLocation.contains("op=CREATE"));
+        
+        assertTrue(redirectLocation.contains(remoteRelativePath));
+    }
+
+    /**
+     * Test of UploadFileAsync method, of class HadoopHdfsRestClient.
+     */
+    @Test
+    public void testUploadFileAsync() {
+        System.out.println("UploadFileAsync");
+        String localPath = "nbactions.xml";
+        String remoteRelativePath = "nbactions.xml";
+
+        String host = "localhost";
+        String username = "michaeljones";
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(host, username);
+        instance.SetBigChunkSize();
+        
+        // First of all get the redirect location from the name node.
+        HttpMethodFuture futureResult = instance.GetRedirectLocationAsync(remoteRelativePath, localPath);
+        String redirectLocation = futureResult.GetRedirectLocation();
+        
+        // Now feed the redirected data node location into the upload.
+        HttpMethodFuture result = instance.UploadFileAsync(redirectLocation, localPath);
+        
+        int expCreatedCode = 201;
+        assertTrue(result.GetHttpStatusCode() == expCreatedCode);
+    }
+
+    /**
+     * Test of SetBigChunkSize method, of class HadoopHdfsRestClient.
+     */
+    @Test
+    public void testSetBigChunkSize() {
+        System.out.println("SetBigChunkSize");
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory("localhost", "xxxx");
+        instance.SetBigChunkSize();
+
+        // Not much to verify. If not thrown assume pass.
+        assertTrue(true);
     }
     
 }

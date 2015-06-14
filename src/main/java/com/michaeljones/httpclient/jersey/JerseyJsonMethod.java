@@ -92,7 +92,6 @@ public class JerseyJsonMethod implements HttpJsonMethod {
         InputStream fileInStream = new FileInputStream(filePath);
         ClientResponse response = fileResource.type(MediaType.APPLICATION_OCTET_STREAM).put(ClientResponse.class, fileInStream);
 
-        // This implementation does not append to the redirect parameter.
         MultivaluedMap<String, String> headers = response.getHeaders();
         try {
             List<String> hdrs = headers.get("Location");
@@ -132,6 +131,25 @@ public class JerseyJsonMethod implements HttpJsonMethod {
 
         // This implementation does not append to the redirect parameter.
         return response.getStatus();
+    }
+
+    @Override
+    public HttpMethodFuture GetRedirectLocationAsync(String url, String filePath, List<Pair<String, String>> queryParams) throws FileNotFoundException {
+        AsyncWebResource fileResource = jerseyImpl.asyncResource(url);
+        
+        if (queryParams != null) {
+            for (Pair<String, String> queryParam : queryParams) {
+                fileResource = fileResource.queryParam(queryParam.getFirst(), queryParam.getSecond());
+            }
+        }
+
+        InputStream fileInStream = new FileInputStream(filePath);
+        AsyncWebResource.Builder request = fileResource.getRequestBuilder();
+        request = request.entity(fileInStream, MediaType.APPLICATION_OCTET_STREAM);
+        
+        Future<ClientResponse> future = request.put(ClientResponse.class);
+        
+        return new HttpJerseyFuture(future);        
     }
     
     @Override
