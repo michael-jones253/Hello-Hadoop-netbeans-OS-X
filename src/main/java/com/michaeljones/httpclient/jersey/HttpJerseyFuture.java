@@ -30,7 +30,16 @@ public class HttpJerseyFuture implements HttpMethodFuture {
     @Override
     public int GetHttpStatusCode() {
         try {
-            return jerseyFuture.get().getStatus();
+            // Note the following makes this a retrieve once only. Which is ok for this demo
+            // program which gets either the status or the redirect location. If business
+            // use case required, we could cache all results before closing.
+            try {
+                int status = jerseyFuture.get().getStatus();
+                return status;
+            }
+            finally {
+                jerseyFuture.get().close();
+            }
         } catch (InterruptedException | ExecutionException ex) {
             LOGGER.error("Jersey Future: " + ex.getMessage());
             throw new RuntimeException(ex.getMessage());
@@ -42,6 +51,10 @@ public class HttpJerseyFuture implements HttpMethodFuture {
         try {
             ClientResponse response = jerseyFuture.get();
             MultivaluedMap<String, String> headers = response.getHeaders();
+
+            // Note the following makes this a retrieve once only. Which is ok for this demo
+            // program which gets either the status or the redirect location. If business
+            // use case required, we could cache all results before closing.
             try {
                 List<String> hdrs = headers.get("Location");
                 if (hdrs.size() > 0) {

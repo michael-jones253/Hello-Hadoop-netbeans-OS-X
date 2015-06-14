@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * @author michaeljones
  */
 public class JerseyJsonMethodTest {
-        // Send the logs to the same appender as for the hellohadoopworld package.
+    // Send the logs to the same appender as for the hellohadoopworld package.
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloHdfsTest.class.getName());
 
     

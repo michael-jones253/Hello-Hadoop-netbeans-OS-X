@@ -12,8 +12,6 @@ import com.michaeljones.httpclient.jersey.JerseyJsonMethod;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.math3.util.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,17 +25,17 @@ import org.slf4j.LoggerFactory;
  */
 public class HadoopHdfsRestClient {
     
-    // %1 host, %2 username %3 resource.
+    // %1 dataNodeHost, %2 username %3 resource.
     private static final String  BASIC_URL_FORMAT = "http://%1$s:50070/webhdfs/v1/user/%2$s/%3$s";
     
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ApacheJsonMethod.class.getName());
 
     private HttpJsonMethod restImpl;
-    private String host;
-    private String username;
+    private final String dataNodeHost;
+    private final String username;
 
     private HadoopHdfsRestClient(String host, String username) {
-        this.host = host;
+        this.dataNodeHost = host;
         this.username = username;
     }
 
@@ -59,8 +57,8 @@ public class HadoopHdfsRestClient {
 
     public String[] ListDirectorySimple(String remoteRelativePath) {
         try {
-            // %1 host, %2 username %3 resource.
-            String uri = String.format(BASIC_URL_FORMAT, host, username, remoteRelativePath);
+            // %1 dataNodeHost, %2 username %3 resource.
+            String uri = String.format(BASIC_URL_FORMAT, dataNodeHost, username, remoteRelativePath);
             List<Pair<String, String>> queryParams = new ArrayList();
             queryParams.add(new Pair<>("user.name","michaeljones"));
             queryParams.add(new Pair<>("op","LISTSTATUS"));
@@ -91,8 +89,8 @@ public class HadoopHdfsRestClient {
     }
     
     public void CreateEmptyFile(String remoteRelativePath) {
-        // %1 host, %2 username %3 resource.
-        String uri = String.format(BASIC_URL_FORMAT, host, username, remoteRelativePath);
+        // %1 dataNodeHost, %2 username %3 resource.
+        String uri = String.format(BASIC_URL_FORMAT, dataNodeHost, username, remoteRelativePath);
         List<Pair<String, String>> queryParams = new ArrayList();
         queryParams.add(new Pair<>("user.name","michaeljones"));
         queryParams.add(new Pair<>("op","CREATE"));
@@ -138,8 +136,8 @@ public class HadoopHdfsRestClient {
     }
     
     public void UploadFile(String remoteRelativePath, String localPath) {
-        // %1 host, %2 username %3 resource.
-        String uri = String.format(BASIC_URL_FORMAT, host, username, remoteRelativePath);
+        // %1 dataNodeHost, %2 username %3 resource.
+        String uri = String.format(BASIC_URL_FORMAT, dataNodeHost, username, remoteRelativePath);
         List<Pair<String, String>> queryParams = new ArrayList();
         queryParams.add(new Pair<>("user.name","michaeljones"));
         queryParams.add(new Pair<>("op","CREATE"));
@@ -186,10 +184,54 @@ public class HadoopHdfsRestClient {
             restImpl.Close();
         }        
     }
+    
+    public void ParallelUpload(List<Pair<String, String>> remoteLocalPairs) {
+        // First of all do a concurrent gathering of the redirections from the name node.
+        // Does this help if we are all going to the same name node?
+        // Answer: yes because we are performing multiple round trips concurrently. Packets
+        // are of course interleaved, but we are not blocking on the round trip interval.
+        List<HttpMethodFuture> redirectFutures = new ArrayList();
+        for (Pair<String, String> remoteLocal : remoteLocalPairs) {
+            HttpMethodFuture redirect = GetRedirectLocationAsync(remoteLocal.getFirst(), remoteLocal.getSecond());
+            redirectFutures.add(redirect);
+        }
+
+        // Now make a new list of redirect, local path pairs. This will take as long as the
+        // longest redirect retrieval.
+        List<Pair<String, String>> redirectLocalPairs = new ArrayList();
+        for (HttpMethodFuture redirect : redirectFutures) {
+            // This may block depending on whether any of the preceding futures took longer or not.
+            String redirectLocation = redirect.GetRedirectLocation();
+            String localPath = remoteLocalPairs.get(0).getSecond();
+            redirectLocalPairs.add(new Pair<>(redirectLocation, localPath));
+        }
+        
+        List<HttpMethodFuture> uploadFutures = new ArrayList();
+
+        // The final step is to perform a concurrent/parallel upload to the data nodes.
+        // In a multi-homed cluster these could be going out on separate interfaces.
+        // The bottleneck would then be the file storage. If some "local" paths were coming from
+        // different file servers then we would really win with this strategy.
+        for (Pair<String, String> redirectLocal : redirectLocalPairs) {
+            HttpMethodFuture future = UploadFileAsync(redirectLocal.getFirst(), redirectLocal.getSecond());
+            uploadFutures.add(future);
+        }
+        
+        // Now wait for all uploads to complete. This will take as long as the
+        // longest upload.
+        for (HttpMethodFuture upload : uploadFutures) {
+            // This may block depending on whether any previous futures took longer or not.
+            int httpStatusCode = upload.GetHttpStatusCode();
+            if (httpStatusCode != 201) {
+                // Should really log which file.
+                LOGGER.error("Hadoop parallel upload unexpected status: " + httpStatusCode);                
+            }
+        }
+    }
 
     public HttpMethodFuture GetRedirectLocationAsync(String remoteRelativePath, String localPath) {
-        // %1 host, %2 username %3 resource.
-        String uri = String.format(BASIC_URL_FORMAT, host, username, remoteRelativePath);
+        // %1 dataNodeHost, %2 username %3 resource.
+        String uri = String.format(BASIC_URL_FORMAT, dataNodeHost, username, remoteRelativePath);
         List<Pair<String, String>> queryParams = new ArrayList();
         queryParams.add(new Pair<>("user.name","michaeljones"));
         queryParams.add(new Pair<>("op","CREATE"));

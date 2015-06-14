@@ -5,19 +5,31 @@
  */
 package com.michaeljones.hellohadoop.restclient;
 
+import com.michaeljones.hellohadoopworldmaven.HelloHdfsTest;
 import com.michaeljones.httpclient.HttpMethodFuture;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.math3.util.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author michaeljones
  */
 public class HadoopHdfsRestClientTest {
+    private static final String NAMENODE_HOST = "localhost";
+    private static final String USERNAME = "michaeljones";
+
+    // Send the logs to the same appender as for the hellohadoopworld package.
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelloHdfsTest.class.getName());
+
     
     public HadoopHdfsRestClientTest() {
     }
@@ -44,9 +56,7 @@ public class HadoopHdfsRestClientTest {
     @Test
     public void testJerseyClientFactory() {
         System.out.println("JerseyClientFactory");
-        String host = "localhost";
-        String username = "michaeljones";
-        HadoopHdfsRestClient result = HadoopHdfsRestClient.JerseyClientFactory(host, username);
+        HadoopHdfsRestClient result = HadoopHdfsRestClient.JerseyClientFactory(NAMENODE_HOST, USERNAME);
         
         // Not a lot to test.
         assertTrue(result != null);
@@ -58,13 +68,9 @@ public class HadoopHdfsRestClientTest {
     @Test
     public void testListDirectorySimple() {
         System.out.println("ListDirectory");
-        String host = "localhost";
-        String username = "michaeljones";
         
         // First test the Jersey back end implementation.
-        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(
-                host,
-                username);
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(NAMENODE_HOST, USERNAME);
 
         // Home directory.
         String relativePath = "";
@@ -84,7 +90,7 @@ public class HadoopHdfsRestClientTest {
         assertTrue(foundHelloFile);
         
         // Now test the Apache back end implementation. It should behave the same.
-        instance = HadoopHdfsRestClient.ApacheClientFactory(host, username);
+        instance = HadoopHdfsRestClient.ApacheClientFactory(NAMENODE_HOST, USERNAME);
         directoryListing = instance.ListDirectorySimple(relativePath);
         assertTrue(directoryListing != null);
         assertTrue(directoryListing.length > 0);
@@ -105,12 +111,8 @@ public class HadoopHdfsRestClientTest {
     @Test
     public void testCreateEmptyFile() {
         System.out.println("CreateEmptyFile");
-        String host = "localhost";
-        String username = "michaeljones";
 
-        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(
-                host,
-                username);
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(NAMENODE_HOST, USERNAME);
 
         String remoteRelativePath = "hello-jersey-emtpy.txt";
         instance.CreateEmptyFile(remoteRelativePath);
@@ -122,7 +124,7 @@ public class HadoopHdfsRestClientTest {
         remoteRelativePath = "hello-apache-empty.txt";
         
         // Now test the Apache back end implementation. It should behave the same.
-        instance = HadoopHdfsRestClient.ApacheClientFactory(host, username);
+        instance = HadoopHdfsRestClient.ApacheClientFactory(NAMENODE_HOST, USERNAME);
         instance.CreateEmptyFile(remoteRelativePath);
         // If it doesn't throw an exception, consider passed.
         assertTrue(true);
@@ -134,14 +136,10 @@ public class HadoopHdfsRestClientTest {
     @Test
     public void testUploadFile() {
         System.out.println("UploadFile");
-        String host = "localhost";
-        String username = "michaeljones";
 
         String remoteRelativePath = "hellohadoop.log";
         String localPath = "hellohadoop.log";
-        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(
-                host,
-                username);
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(NAMENODE_HOST, USERNAME);
 
         instance.UploadFile(remoteRelativePath, localPath);
 
@@ -165,7 +163,7 @@ public class HadoopHdfsRestClientTest {
         localPath = "README.md";
         
         // Now test the Apache back end implementation. It should behave the same.
-        instance = HadoopHdfsRestClient.ApacheClientFactory(host, username);
+        instance = HadoopHdfsRestClient.ApacheClientFactory(NAMENODE_HOST, USERNAME);
         instance.UploadFile(remoteRelativePath, localPath);
         // If it doesn't throw an exception, consider passed.
         assertTrue(true);                
@@ -178,9 +176,7 @@ public class HadoopHdfsRestClientTest {
     @Test
     public void testApacheClientFactory() {
         System.out.println("ApacheClientFactory");
-        String host = "localhost";
-        String username = "michaeljones";
-        HadoopHdfsRestClient result = HadoopHdfsRestClient.ApacheClientFactory(host, username);
+        HadoopHdfsRestClient result = HadoopHdfsRestClient.ApacheClientFactory(NAMENODE_HOST, USERNAME);
         
         // Not a lot to test.
         assertTrue(result != null);
@@ -194,9 +190,7 @@ public class HadoopHdfsRestClientTest {
         System.out.println("GetRedirectLocationAsync");
         String remoteRelativePath = "nbactions.xml";
         String localPath = "nbactions.xml";
-        String host = "localhost";
-        String username = "michaeljones";
-        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(host, username);
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(NAMENODE_HOST, USERNAME);
         instance.SetBigChunkSize();
         
         HttpMethodFuture futureResult = instance.GetRedirectLocationAsync(remoteRelativePath, localPath);
@@ -219,14 +213,15 @@ public class HadoopHdfsRestClientTest {
         String localPath = "nbactions.xml";
         String remoteRelativePath = "nbactions.xml";
 
-        String host = "localhost";
-        String username = "michaeljones";
-        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(host, username);
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(NAMENODE_HOST, USERNAME);
         instance.SetBigChunkSize();
         
         // First of all get the redirect location from the name node.
         HttpMethodFuture futureResult = instance.GetRedirectLocationAsync(remoteRelativePath, localPath);
         String redirectLocation = futureResult.GetRedirectLocation();
+        
+        assertTrue(redirectLocation.contains("50075"));
+        LOGGER.info("testUploadFileAsync: redirect: " + redirectLocation);
         
         // Now feed the redirected data node location into the upload.
         HttpMethodFuture result = instance.UploadFileAsync(redirectLocation, localPath);
@@ -241,11 +236,31 @@ public class HadoopHdfsRestClientTest {
     @Test
     public void testSetBigChunkSize() {
         System.out.println("SetBigChunkSize");
-        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory("localhost", "xxxx");
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(NAMENODE_HOST, USERNAME);
         instance.SetBigChunkSize();
 
         // Not much to verify. If not thrown assume pass.
         assertTrue(true);
+    }
+
+    /**
+     * Test of ParallelUpload method, of class HadoopHdfsRestClient.
+     */
+    @Test
+    public void testParallelUpload() {
+        System.out.println("ParallelUpload");
+        List<Pair<String, String>> remoteLocalPairs = new ArrayList();
+        // Upload some log files, destination file name same as source.
+        remoteLocalPairs.add(new Pair<>("hellohadoop.log.2015-06-12", "hellohadoop.log.2015-06-12"));
+        remoteLocalPairs.add(new Pair<>("hellohadoop.log.2015-06-13", "hellohadoop.log.2015-06-13"));
+        
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(NAMENODE_HOST, USERNAME);
+        instance.SetBigChunkSize();
+
+        instance.ParallelUpload(remoteLocalPairs);
+        
+        // If we didn't throw assume pass.
+        assertTrue(true);    
     }
     
 }
