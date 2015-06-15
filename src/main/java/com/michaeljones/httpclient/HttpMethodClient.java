@@ -13,7 +13,7 @@ import org.apache.commons.math3.util.Pair;
  * Provide a common client interface to either a jersey or apache client back end.
  * @author michaeljones
  */
-public interface HttpJsonMethod {
+public interface HttpMethodClient {
 
     String GetStringContent(String url, List<Pair<String, String>> queryParams);
 

@@ -5,7 +5,7 @@
  */
 package com.michaeljones.httpclient.apache;
 
-import com.michaeljones.httpclient.HttpJsonMethod;
+import com.michaeljones.httpclient.HttpMethodClient;
 import com.michaeljones.httpclient.HttpMethodFuture;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author michaeljones
  */
-public class ApacheJsonMethod implements HttpJsonMethod {
+public class ApacheJsonMethod implements HttpMethodClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApacheJsonMethod.class.getName());
 

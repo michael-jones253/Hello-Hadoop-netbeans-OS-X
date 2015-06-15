@@ -5,7 +5,7 @@
  */
 package com.michaeljones.hellohadoop.restclient;
 
-import com.michaeljones.httpclient.HttpJsonMethod;
+import com.michaeljones.httpclient.HttpMethodClient;
 import com.michaeljones.httpclient.HttpMethodFuture;
 import com.michaeljones.httpclient.apache.ApacheJsonMethod;
 import com.michaeljones.httpclient.jersey.JerseyJsonMethod;
@@ -30,7 +30,7 @@ public class HadoopHdfsRestClient {
     
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ApacheJsonMethod.class.getName());
 
-    private HttpJsonMethod restImpl;
+    private HttpMethodClient restImpl;
     private final String nameNodeHost;
     private final String username;
 

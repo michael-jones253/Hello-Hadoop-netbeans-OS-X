@@ -5,7 +5,7 @@
  */
 package com.michaeljones.httpclient.jersey;
 
-import com.michaeljones.httpclient.HttpJsonMethod;
+import com.michaeljones.httpclient.HttpMethodClient;
 import com.michaeljones.httpclient.HttpMethodFuture;
 import com.michaeljones.httpclient.apache.ApacheJsonMethod;
 import com.sun.jersey.api.client.AsyncWebResource;
@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author michaeljones
  */
-public class JerseyJsonMethod implements HttpJsonMethod {
+public class JerseyJsonMethod implements HttpMethodClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApacheJsonMethod.class.getName());
     private static final int CHUNK_SIZE = 1024 * 1024;
