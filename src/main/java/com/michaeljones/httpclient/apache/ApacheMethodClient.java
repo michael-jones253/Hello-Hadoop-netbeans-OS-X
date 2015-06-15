@@ -33,13 +33,13 @@ import org.slf4j.LoggerFactory;
  *
  * @author michaeljones
  */
-public class ApacheJsonMethod implements HttpMethodClient {
+public class ApacheMethodClient implements HttpMethodClient {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApacheJsonMethod.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApacheMethodClient.class.getName());
 
     CloseableHttpClient clientImpl;
 
-    public ApacheJsonMethod() {
+    public ApacheMethodClient() {
         clientImpl = HttpClients.createDefault();
     }
 

@@ -7,7 +7,7 @@ package com.michaeljones.hellohadoop.restclient;
 
 import com.michaeljones.httpclient.HttpMethodClient;
 import com.michaeljones.httpclient.HttpMethodFuture;
-import com.michaeljones.httpclient.apache.ApacheJsonMethod;
+import com.michaeljones.httpclient.apache.ApacheMethodClient;
 import com.michaeljones.httpclient.jersey.JerseyMethodClient;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class HadoopHdfsRestClient {
     // %1 nameNodeHost, %2 username %3 resource.
     private static final String  BASIC_URL_FORMAT = "http://%1$s:50070/webhdfs/v1/user/%2$s/%3$s";
     
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ApacheJsonMethod.class.getName());
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ApacheMethodClient.class.getName());
 
     private HttpMethodClient restImpl;
     private final String nameNodeHost;
@@ -50,7 +50,7 @@ public class HadoopHdfsRestClient {
     // The factory method allows us to create different underlying implementations of this client.
     public static HadoopHdfsRestClient ApacheClientFactory(String host, String username) {
         HadoopHdfsRestClient client = new HadoopHdfsRestClient(host, username);
-        client.restImpl = new ApacheJsonMethod();
+        client.restImpl = new ApacheMethodClient();
 
         return client;
     }

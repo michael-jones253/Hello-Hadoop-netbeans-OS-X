@@ -23,11 +23,11 @@ import org.slf4j.LoggerFactory;
  *
  * @author michaeljones
  */
-public class ApacheJsonMethodTest {
+public class ApacheMethodClientTest {
         // Send the logs to the same appender as for the hellohadoopworld package.
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloHdfsTest.class.getName());
     
-    public ApacheJsonMethodTest() {
+    public ApacheMethodClientTest() {
     }
     
     @BeforeClass
@@ -49,7 +49,7 @@ public class ApacheJsonMethodTest {
     }
 
     /**
-     * Test of GetStringContent method, of class ApacheJsonMethod.
+     * Test of GetStringContent method, of class ApacheMethodClient.
      */
     @Test
     public void testGetStringContent() {
@@ -61,7 +61,7 @@ public class ApacheJsonMethodTest {
         
         // List does not require username and password query parameters.
         queryParams.add(new Pair<>("op","LISTSTATUS"));
-        ApacheJsonMethod instance = new ApacheJsonMethod();
+        ApacheMethodClient instance = new ApacheMethodClient();
         String result = instance.GetStringContent(url, queryParams);
         
         LOGGER.info("Apache client testGetStringContent");
@@ -71,7 +71,7 @@ public class ApacheJsonMethodTest {
     }
 
     /**
-     * Test of PutQuery method, of class ApacheJsonMethod.
+     * Test of PutQuery method, of class ApacheMethodClient.
      */
     @Test
     public void testPutQuery() {
@@ -83,7 +83,7 @@ public class ApacheJsonMethodTest {
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
 
-        ApacheJsonMethod instance = new ApacheJsonMethod();
+        ApacheMethodClient instance = new ApacheMethodClient();
         
         // The Apache and Jersey clients behave differently. Jersey appears to implement
         // the "Expect: 100-continue” header correctly, but some clients (like Apache)
@@ -104,7 +104,7 @@ public class ApacheJsonMethodTest {
     }
 
     /**
-     * Test of PutFile method, of class ApacheJsonMethod.
+     * Test of PutFile method, of class ApacheMethodClient.
      * @throws java.lang.Exception
      */
     @Test
@@ -117,7 +117,7 @@ public class ApacheJsonMethodTest {
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
 
-        ApacheJsonMethod instance = new ApacheJsonMethod();
+        ApacheMethodClient instance = new ApacheMethodClient();
                         
         // Will cause a redirect. See hadoop documentation for the following workaround.
         int expTempRedirectResult = 307;
@@ -137,12 +137,12 @@ public class ApacheJsonMethodTest {
     }
 
     /**
-     * Test of Close method, of class ApacheJsonMethod.
+     * Test of Close method, of class ApacheMethodClient.
      */
     @Test
     public void testClose() {
         System.out.println("Close");
-        ApacheJsonMethod instance = new ApacheJsonMethod();
+        ApacheMethodClient instance = new ApacheMethodClient();
         instance.Close();
         
         // If it didn't throw then consider passed.
