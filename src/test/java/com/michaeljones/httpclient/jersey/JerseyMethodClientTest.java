@@ -24,12 +24,12 @@ import org.slf4j.LoggerFactory;
  *
  * @author michaeljones
  */
-public class JerseyJsonMethodTest {
+public class JerseyMethodClientTest {
     // Send the logs to the same appender as for the hellohadoopworld package.
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloHdfsTest.class.getName());
 
     
-    public JerseyJsonMethodTest() {
+    public JerseyMethodClientTest() {
     }
     
     @BeforeClass
@@ -50,7 +50,7 @@ public class JerseyJsonMethodTest {
     }
 
     /**
-     * Test of GetStringContent method, of class JerseyJsonMethod.
+     * Test of GetStringContent method, of class JerseyMethodClient.
      */
     @Test
     public void testGetStringContent() {
@@ -62,7 +62,7 @@ public class JerseyJsonMethodTest {
         
         // List does not require username and password query parameters.
         queryParams.add(new Pair<>("op","LISTSTATUS"));
-        JerseyJsonMethod instance = new JerseyJsonMethod();
+        JerseyMethodClient instance = new JerseyMethodClient();
         String result = instance.GetStringContent(url, queryParams);
         
         LOGGER.info("Jersey client testGetStringContent");
@@ -71,7 +71,7 @@ public class JerseyJsonMethodTest {
     }
 
     /**
-     * Test of PutQuery method, of class JerseyJsonMethod.
+     * Test of PutQuery method, of class JerseyMethodClient.
      */
     @Test
     public void testPutQuery() {
@@ -85,7 +85,7 @@ public class JerseyJsonMethodTest {
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
         
-        JerseyJsonMethod instance = new JerseyJsonMethod();
+        JerseyMethodClient instance = new JerseyMethodClient();
         int expCreatedResult = 201;
         StringBuilder redirectLocation = new StringBuilder();
         int result = instance.PutQuery(url, queryParams, redirectLocation);
@@ -94,7 +94,7 @@ public class JerseyJsonMethodTest {
     }
 
     /**
-     * Test of PutFile method, of class JerseyJsonMethod.
+     * Test of PutFile method, of class JerseyMethodClient.
      * @throws java.lang.Exception
      */
     @Test
@@ -108,7 +108,7 @@ public class JerseyJsonMethodTest {
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
         
-        JerseyJsonMethod instance = new JerseyJsonMethod();
+        JerseyMethodClient instance = new JerseyMethodClient();
         int expCreatedResult = 201;
         String localFilePath= "logs/archive/hello.log";
         StringBuilder redirectLocation = new StringBuilder();
@@ -122,7 +122,7 @@ public class JerseyJsonMethodTest {
     }
 
     /**
-     * Test of PutFileAlternative method, of class JerseyJsonMethod.
+     * Test of PutFileAlternative method, of class JerseyMethodClient.
      */
     @Test
     public void testPutFileAlternative() throws Exception {
@@ -135,7 +135,7 @@ public class JerseyJsonMethodTest {
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
         
-        JerseyJsonMethod instance = new JerseyJsonMethod();
+        JerseyMethodClient instance = new JerseyMethodClient();
         int expCreatedResult = 201;
         String localFilePath= "logs/archive/hello.log";
         StringBuilder redirectLocation = new StringBuilder();
@@ -145,12 +145,12 @@ public class JerseyJsonMethodTest {
     }
 
     /**
-     * Test of Close method, of class JerseyJsonMethod.
+     * Test of Close method, of class JerseyMethodClient.
      */
     @Test
     public void testClose() {
         System.out.println("Close");
-        JerseyJsonMethod instance = new JerseyJsonMethod();
+        JerseyMethodClient instance = new JerseyMethodClient();
         instance.Close();
         
         // Not a lot to test.
@@ -158,12 +158,12 @@ public class JerseyJsonMethodTest {
     }
 
     /**
-     * Test of SetBigChunkSize method, of class JerseyJsonMethod.
+     * Test of SetBigChunkSize method, of class JerseyMethodClient.
      */
     @Test
     public void testSetBigChunkSize() {
         System.out.println("SetBigChunkSize");
-        JerseyJsonMethod instance = new JerseyJsonMethod();
+        JerseyMethodClient instance = new JerseyMethodClient();
         instance.SetBigChunkSize();
         
         // Not a lot to test.
@@ -171,7 +171,7 @@ public class JerseyJsonMethodTest {
     }
 
     /**
-     * Test of PutFileAsync method, of class JerseyJsonMethod.
+     * Test of PutFileAsync method, of class JerseyMethodClient.
      * @throws java.lang.Exception
      */
     @Test
@@ -183,7 +183,7 @@ public class JerseyJsonMethodTest {
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
         
-        JerseyJsonMethod instance = new JerseyJsonMethod();
+        JerseyMethodClient instance = new JerseyMethodClient();
         
         // This is important - without this the Jersey client does not redirect.
         instance.SetBigChunkSize();
@@ -208,7 +208,7 @@ public class JerseyJsonMethodTest {
     }
 
     /**
-     * Test of GetRedirectLocationAsync method, of class JerseyJsonMethod.
+     * Test of GetRedirectLocationAsync method, of class JerseyMethodClient.
      * @throws java.lang.Exception
      */
     @Test
@@ -223,7 +223,7 @@ public class JerseyJsonMethodTest {
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
         
-        JerseyJsonMethod instance = new JerseyJsonMethod();
+        JerseyMethodClient instance = new JerseyMethodClient();
         
         // This is important - without this the Jersey client does not redirect.
         instance.SetBigChunkSize();

@@ -8,7 +8,7 @@ package com.michaeljones.hellohadoop.restclient;
 import com.michaeljones.httpclient.HttpMethodClient;
 import com.michaeljones.httpclient.HttpMethodFuture;
 import com.michaeljones.httpclient.apache.ApacheJsonMethod;
-import com.michaeljones.httpclient.jersey.JerseyJsonMethod;
+import com.michaeljones.httpclient.jersey.JerseyMethodClient;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class HadoopHdfsRestClient {
     // The factory method allows us to create different underlying implementations of this client.
     public static HadoopHdfsRestClient JerseyClientFactory(String host, String username) {
         HadoopHdfsRestClient client = new HadoopHdfsRestClient(host, username);
-        client.restImpl = new JerseyJsonMethod();
+        client.restImpl = new JerseyMethodClient();
 
         return client;
     }

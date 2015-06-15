@@ -29,14 +29,14 @@ import org.slf4j.LoggerFactory;
  *
  * @author michaeljones
  */
-public class JerseyJsonMethod implements HttpMethodClient {
+public class JerseyMethodClient implements HttpMethodClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApacheJsonMethod.class.getName());
     private static final int CHUNK_SIZE = 1024 * 1024;
 
     Client jerseyImpl;
 
-    public JerseyJsonMethod() {
+    public JerseyMethodClient() {
         jerseyImpl = Client.create();
     }
 
