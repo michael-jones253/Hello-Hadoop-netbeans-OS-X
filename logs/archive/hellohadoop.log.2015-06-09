@@ -1,0 +1,13 @@
+testMain
+RunJobAsync
+RunJobAnalysisAsync
+IntSumCombinerAnalyser-Bye[1]
+IntSumCombinerAnalyser-Goodbye[1]
+IntSumCombinerAnalyser-Hadoop[1,1]
+IntSumCombinerAnalyser-Hello[1,1]
+IntSumCombinerAnalyser-World[1,1]
+IntSumReducerAnalyser-Bye[1]
+IntSumReducerAnalyser-Goodbye[1]
+IntSumReducerAnalyser-Hadoop[2]
+IntSumReducerAnalyser-Hello[2]
+IntSumReducerAnalyser-World[2]

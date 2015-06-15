@@ -1,0 +1,74 @@
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1433913909820,"blockSize":134217728,"childrenNum":0,"fileId":18077,"group":"supergroup","length":20,"modificationTime":1433913910326,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1433913911147,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18085,"group":"supergroup","length":0,"modificationTime":1433913914359,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18092,"group":"supergroup","length":0,"modificationTime":1433913916010,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18078,"group":"supergroup","length":0,"modificationTime":1433913912906,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1433913909820,"blockSize":134217728,"childrenNum":0,"fileId":18077,"group":"supergroup","length":20,"modificationTime":1433913910326,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1433913911147,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18085,"group":"supergroup","length":0,"modificationTime":1433913914359,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18092,"group":"supergroup","length":0,"modificationTime":1433913916010,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18078,"group":"supergroup","length":0,"modificationTime":1433913912906,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1433913909820,"blockSize":134217728,"childrenNum":0,"fileId":18077,"group":"supergroup","length":20,"modificationTime":1433913910326,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1433913911147,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18085,"group":"supergroup","length":0,"modificationTime":1433913914359,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18092,"group":"supergroup","length":0,"modificationTime":1433913916010,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18078,"group":"supergroup","length":0,"modificationTime":1433913912906,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1433913909820,"blockSize":134217728,"childrenNum":0,"fileId":18077,"group":"supergroup","length":20,"modificationTime":1433913910326,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1433913911147,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18085,"group":"supergroup","length":0,"modificationTime":1433913914359,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18092,"group":"supergroup","length":0,"modificationTime":1433913916010,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18078,"group":"supergroup","length":0,"modificationTime":1433913912906,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1433913909820,"blockSize":134217728,"childrenNum":0,"fileId":18077,"group":"supergroup","length":20,"modificationTime":1433913910326,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1433913911147,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18085,"group":"supergroup","length":0,"modificationTime":1433913914359,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18092,"group":"supergroup","length":0,"modificationTime":1433913916010,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18078,"group":"supergroup","length":0,"modificationTime":1433913912906,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1433913909820,"blockSize":134217728,"childrenNum":0,"fileId":18077,"group":"supergroup","length":20,"modificationTime":1433913910326,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1433913911147,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18085,"group":"supergroup","length":0,"modificationTime":1433913914359,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18092,"group":"supergroup","length":0,"modificationTime":1433913916010,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18078,"group":"supergroup","length":0,"modificationTime":1433913912906,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1433995540176,"blockSize":134217728,"childrenNum":0,"fileId":18101,"group":"supergroup","length":0,"modificationTime":1433995540182,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1433913909820,"blockSize":134217728,"childrenNum":0,"fileId":18077,"group":"supergroup","length":20,"modificationTime":1433913910326,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1433913911147,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18085,"group":"supergroup","length":0,"modificationTime":1433913914359,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18092,"group":"supergroup","length":0,"modificationTime":1433913916010,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18078,"group":"supergroup","length":0,"modificationTime":1433913912906,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1433995650535,"blockSize":134217728,"childrenNum":0,"fileId":18102,"group":"supergroup","length":0,"modificationTime":1433995650541,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1433913909820,"blockSize":134217728,"childrenNum":0,"fileId":18077,"group":"supergroup","length":20,"modificationTime":1433913910326,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1433913911147,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18085,"group":"supergroup","length":0,"modificationTime":1433913914359,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18092,"group":"supergroup","length":0,"modificationTime":1433913916010,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18078,"group":"supergroup","length":0,"modificationTime":1433913912906,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+

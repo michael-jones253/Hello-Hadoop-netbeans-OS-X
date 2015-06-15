@@ -1,8 +1,8 @@
 /target/
 /hello.txt
 /output/
-/*.log
-/*.log.*
+/logs/*.log
+/logs/*.log.*
 /my_utility_scripts/*.class
 /my_utility_scripts/*.out
 /my_utility_scripts/*.jar

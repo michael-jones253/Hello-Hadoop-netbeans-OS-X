@@ -6,7 +6,6 @@
 package com.michaeljones.httpclient.apache;
 
 import com.michaeljones.hellohadoopworldmaven.HelloHdfsTest;
-import com.michaeljones.httpclient.jersey.JerseyJsonMethod;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.math3.util.Pair;

@@ -110,7 +110,7 @@ public class JerseyJsonMethodTest {
         
         JerseyJsonMethod instance = new JerseyJsonMethod();
         int expCreatedResult = 201;
-        String localFilePath= "hello.log";
+        String localFilePath= "logs/archive/hello.log";
         StringBuilder redirectLocation = new StringBuilder();
         int result = instance.PutFile(url, localFilePath, queryParams, redirectLocation);
         assertEquals(expCreatedResult, result);
@@ -137,7 +137,7 @@ public class JerseyJsonMethodTest {
         
         JerseyJsonMethod instance = new JerseyJsonMethod();
         int expCreatedResult = 201;
-        String localFilePath= "hello.log";
+        String localFilePath= "logs/archive/hello.log";
         StringBuilder redirectLocation = new StringBuilder();
         int result = instance.PutFileAlternative(url, localFilePath, queryParams, redirectLocation);
         assertEquals(expCreatedResult, result);

@@ -1,0 +1,256 @@
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1434180753127,"blockSize":134217728,"childrenNum":0,"fileId":18598,"group":"supergroup","length":10899,"modificationTime":1434180753156,"owner":"michaeljones","pathSuffix":"README.md","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180764122,"blockSize":134217728,"childrenNum":0,"fileId":18621,"group":"supergroup","length":0,"modificationTime":1434180764129,"owner":"michaeljones","pathSuffix":"apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180765102,"blockSize":134217728,"childrenNum":0,"fileId":18624,"group":"supergroup","length":0,"modificationTime":1434180765107,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752409,"blockSize":134217728,"childrenNum":0,"fileId":18595,"group":"supergroup","length":0,"modificationTime":1434180752419,"owner":"michaeljones","pathSuffix":"hello-apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434091626279,"blockSize":134217728,"childrenNum":0,"fileId":18298,"group":"supergroup","length":0,"modificationTime":1434091626286,"owner":"michaeljones","pathSuffix":"hello-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752331,"blockSize":134217728,"childrenNum":0,"fileId":18594,"group":"supergroup","length":0,"modificationTime":1434180752342,"owner":"michaeljones","pathSuffix":"hello-jersey-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180765218,"blockSize":134217728,"childrenNum":0,"fileId":18625,"group":"supergroup","length":2353098,"modificationTime":1434180765322,"owner":"michaeljones","pathSuffix":"hello.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752856,"blockSize":134217728,"childrenNum":0,"fileId":18597,"group":"supergroup","length":3678856,"modificationTime":1434180753009,"owner":"michaeljones","pathSuffix":"hello.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180756986,"blockSize":134217728,"childrenNum":0,"fileId":18599,"group":"supergroup","length":20,"modificationTime":1434180757588,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752714,"blockSize":134217728,"childrenNum":0,"fileId":18596,"group":"supergroup","length":113554,"modificationTime":1434180752741,"owner":"michaeljones","pathSuffix":"hellohadoop.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180765608,"blockSize":134217728,"childrenNum":0,"fileId":18626,"group":"supergroup","length":3644,"modificationTime":1434180765630,"owner":"michaeljones","pathSuffix":"nbactions.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180764163,"blockSize":134217728,"childrenNum":0,"fileId":18622,"group":"supergroup","length":2134,"modificationTime":1434180764193,"owner":"michaeljones","pathSuffix":"pom.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180758226,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18600,"group":"supergroup","length":0,"modificationTime":1434180760247,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18607,"group":"supergroup","length":0,"modificationTime":1434180761544,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18614,"group":"supergroup","length":0,"modificationTime":1434180763349,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey redirected to IPC: hdfs://localhost:9000/user/michaeljones/hello.log
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1434180753127,"blockSize":134217728,"childrenNum":0,"fileId":18598,"group":"supergroup","length":10899,"modificationTime":1434180753156,"owner":"michaeljones","pathSuffix":"README.md","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180764122,"blockSize":134217728,"childrenNum":0,"fileId":18621,"group":"supergroup","length":0,"modificationTime":1434180764129,"owner":"michaeljones","pathSuffix":"apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434239985548,"blockSize":134217728,"childrenNum":0,"fileId":18627,"group":"supergroup","length":0,"modificationTime":1434239985662,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752409,"blockSize":134217728,"childrenNum":0,"fileId":18595,"group":"supergroup","length":0,"modificationTime":1434180752419,"owner":"michaeljones","pathSuffix":"hello-apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434091626279,"blockSize":134217728,"childrenNum":0,"fileId":18298,"group":"supergroup","length":0,"modificationTime":1434091626286,"owner":"michaeljones","pathSuffix":"hello-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752331,"blockSize":134217728,"childrenNum":0,"fileId":18594,"group":"supergroup","length":0,"modificationTime":1434180752342,"owner":"michaeljones","pathSuffix":"hello-jersey-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434239987004,"blockSize":134217728,"childrenNum":0,"fileId":18629,"group":"supergroup","length":4481,"modificationTime":1434239987034,"owner":"michaeljones","pathSuffix":"hello.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752856,"blockSize":134217728,"childrenNum":0,"fileId":18597,"group":"supergroup","length":3678856,"modificationTime":1434180753009,"owner":"michaeljones","pathSuffix":"hello.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180756986,"blockSize":134217728,"childrenNum":0,"fileId":18599,"group":"supergroup","length":20,"modificationTime":1434180757588,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752714,"blockSize":134217728,"childrenNum":0,"fileId":18596,"group":"supergroup","length":113554,"modificationTime":1434180752741,"owner":"michaeljones","pathSuffix":"hellohadoop.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434239987676,"blockSize":134217728,"childrenNum":0,"fileId":18630,"group":"supergroup","length":3644,"modificationTime":1434239987702,"owner":"michaeljones","pathSuffix":"nbactions.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180764163,"blockSize":134217728,"childrenNum":0,"fileId":18622,"group":"supergroup","length":2134,"modificationTime":1434180764193,"owner":"michaeljones","pathSuffix":"pom.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180758226,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18600,"group":"supergroup","length":0,"modificationTime":1434180760247,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18607,"group":"supergroup","length":0,"modificationTime":1434180761544,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18614,"group":"supergroup","length":0,"modificationTime":1434180763349,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey redirected to IPC: hdfs://localhost:9000/user/michaeljones/hello.log
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1434180753127,"blockSize":134217728,"childrenNum":0,"fileId":18598,"group":"supergroup","length":10899,"modificationTime":1434180753156,"owner":"michaeljones","pathSuffix":"README.md","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180764122,"blockSize":134217728,"childrenNum":0,"fileId":18621,"group":"supergroup","length":0,"modificationTime":1434180764129,"owner":"michaeljones","pathSuffix":"apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434240142080,"blockSize":134217728,"childrenNum":0,"fileId":18631,"group":"supergroup","length":0,"modificationTime":1434240142086,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752409,"blockSize":134217728,"childrenNum":0,"fileId":18595,"group":"supergroup","length":0,"modificationTime":1434180752419,"owner":"michaeljones","pathSuffix":"hello-apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434091626279,"blockSize":134217728,"childrenNum":0,"fileId":18298,"group":"supergroup","length":0,"modificationTime":1434091626286,"owner":"michaeljones","pathSuffix":"hello-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752331,"blockSize":134217728,"childrenNum":0,"fileId":18594,"group":"supergroup","length":0,"modificationTime":1434180752342,"owner":"michaeljones","pathSuffix":"hello-jersey-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434240142568,"blockSize":134217728,"childrenNum":0,"fileId":18633,"group":"supergroup","length":9325,"modificationTime":1434240142601,"owner":"michaeljones","pathSuffix":"hello.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752856,"blockSize":134217728,"childrenNum":0,"fileId":18597,"group":"supergroup","length":3678856,"modificationTime":1434180753009,"owner":"michaeljones","pathSuffix":"hello.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180756986,"blockSize":134217728,"childrenNum":0,"fileId":18599,"group":"supergroup","length":20,"modificationTime":1434180757588,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752714,"blockSize":134217728,"childrenNum":0,"fileId":18596,"group":"supergroup","length":113554,"modificationTime":1434180752741,"owner":"michaeljones","pathSuffix":"hellohadoop.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434240143148,"blockSize":134217728,"childrenNum":0,"fileId":18634,"group":"supergroup","length":3644,"modificationTime":1434240143188,"owner":"michaeljones","pathSuffix":"nbactions.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180764163,"blockSize":134217728,"childrenNum":0,"fileId":18622,"group":"supergroup","length":2134,"modificationTime":1434180764193,"owner":"michaeljones","pathSuffix":"pom.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180758226,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18600,"group":"supergroup","length":0,"modificationTime":1434180760247,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18607,"group":"supergroup","length":0,"modificationTime":1434180761544,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18614,"group":"supergroup","length":0,"modificationTime":1434180763349,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey redirected to IPC: hdfs://localhost:9000/user/michaeljones/hello.log
+Get redirect location async: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/nbactions.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1434180753127,"blockSize":134217728,"childrenNum":0,"fileId":18598,"group":"supergroup","length":10899,"modificationTime":1434180753156,"owner":"michaeljones","pathSuffix":"README.md","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180764122,"blockSize":134217728,"childrenNum":0,"fileId":18621,"group":"supergroup","length":0,"modificationTime":1434180764129,"owner":"michaeljones","pathSuffix":"apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434240250112,"blockSize":134217728,"childrenNum":0,"fileId":18635,"group":"supergroup","length":0,"modificationTime":1434240250121,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752409,"blockSize":134217728,"childrenNum":0,"fileId":18595,"group":"supergroup","length":0,"modificationTime":1434180752419,"owner":"michaeljones","pathSuffix":"hello-apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434091626279,"blockSize":134217728,"childrenNum":0,"fileId":18298,"group":"supergroup","length":0,"modificationTime":1434091626286,"owner":"michaeljones","pathSuffix":"hello-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752331,"blockSize":134217728,"childrenNum":0,"fileId":18594,"group":"supergroup","length":0,"modificationTime":1434180752342,"owner":"michaeljones","pathSuffix":"hello-jersey-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434240250579,"blockSize":134217728,"childrenNum":0,"fileId":18637,"group":"supergroup","length":14355,"modificationTime":1434240250609,"owner":"michaeljones","pathSuffix":"hello.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752856,"blockSize":134217728,"childrenNum":0,"fileId":18597,"group":"supergroup","length":3678856,"modificationTime":1434180753009,"owner":"michaeljones","pathSuffix":"hello.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180756986,"blockSize":134217728,"childrenNum":0,"fileId":18599,"group":"supergroup","length":20,"modificationTime":1434180757588,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180752714,"blockSize":134217728,"childrenNum":0,"fileId":18596,"group":"supergroup","length":113554,"modificationTime":1434180752741,"owner":"michaeljones","pathSuffix":"hellohadoop.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434240251224,"blockSize":134217728,"childrenNum":0,"fileId":18638,"group":"supergroup","length":3644,"modificationTime":1434240251257,"owner":"michaeljones","pathSuffix":"nbactions.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180764163,"blockSize":134217728,"childrenNum":0,"fileId":18622,"group":"supergroup","length":2134,"modificationTime":1434180764193,"owner":"michaeljones","pathSuffix":"pom.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180758226,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18600,"group":"supergroup","length":0,"modificationTime":1434180760247,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18607,"group":"supergroup","length":0,"modificationTime":1434180761544,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18614,"group":"supergroup","length":0,"modificationTime":1434180763349,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey redirected to IPC: hdfs://localhost:9000/user/michaeljones/hello.log
+Get redirect location async: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/nbactions.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+testMain
+RunJobAsync
+RunJobAnalysisAsync
+IntSumCombinerAnalyser-Bye[1]
+IntSumCombinerAnalyser-Goodbye[1]
+IntSumCombinerAnalyser-Hadoop[1,1]
+IntSumCombinerAnalyser-Hello[1,1]
+IntSumCombinerAnalyser-World[1,1]
+IntSumReducerAnalyser-Bye[1]
+IntSumReducerAnalyser-Goodbye[1]
+IntSumReducerAnalyser-Hadoop[2]
+IntSumReducerAnalyser-Hello[2]
+IntSumReducerAnalyser-World[2]
+Apache client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1434242160265,"blockSize":134217728,"childrenNum":0,"fileId":18666,"group":"supergroup","length":11335,"modificationTime":1434242160307,"owner":"michaeljones","pathSuffix":"README.md","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180764122,"blockSize":134217728,"childrenNum":0,"fileId":18621,"group":"supergroup","length":0,"modificationTime":1434180764129,"owner":"michaeljones","pathSuffix":"apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434240295990,"blockSize":134217728,"childrenNum":0,"fileId":18639,"group":"supergroup","length":0,"modificationTime":1434240295996,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242159644,"blockSize":134217728,"childrenNum":0,"fileId":18663,"group":"supergroup","length":0,"modificationTime":1434242159652,"owner":"michaeljones","pathSuffix":"hello-apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434091626279,"blockSize":134217728,"childrenNum":0,"fileId":18298,"group":"supergroup","length":0,"modificationTime":1434091626286,"owner":"michaeljones","pathSuffix":"hello-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242159578,"blockSize":134217728,"childrenNum":0,"fileId":18662,"group":"supergroup","length":0,"modificationTime":1434242159585,"owner":"michaeljones","pathSuffix":"hello-jersey-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434240296439,"blockSize":134217728,"childrenNum":0,"fileId":18641,"group":"supergroup","length":19574,"modificationTime":1434240296468,"owner":"michaeljones","pathSuffix":"hello.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242160010,"blockSize":134217728,"childrenNum":0,"fileId":18665,"group":"supergroup","length":3678856,"modificationTime":1434242160145,"owner":"michaeljones","pathSuffix":"hello.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242164264,"blockSize":134217728,"childrenNum":0,"fileId":18668,"group":"supergroup","length":20,"modificationTime":1434242164753,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242159867,"blockSize":134217728,"childrenNum":0,"fileId":18664,"group":"supergroup","length":17984,"modificationTime":1434242159894,"owner":"michaeljones","pathSuffix":"hellohadoop.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242160987,"blockSize":134217728,"childrenNum":0,"fileId":18667,"group":"supergroup","length":3644,"modificationTime":1434242161016,"owner":"michaeljones","pathSuffix":"nbactions.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434180764163,"blockSize":134217728,"childrenNum":0,"fileId":18622,"group":"supergroup","length":2134,"modificationTime":1434180764193,"owner":"michaeljones","pathSuffix":"pom.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242165542,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18676,"group":"supergroup","length":0,"modificationTime":1434242169795,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18683,"group":"supergroup","length":0,"modificationTime":1434242171819,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18669,"group":"supergroup","length":0,"modificationTime":1434242168288,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+PUT file redirect: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/apache-empty.txt?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+PUT file redirect: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/pom.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+Get redirect location async: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/nbactions.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1434242160265,"blockSize":134217728,"childrenNum":0,"fileId":18666,"group":"supergroup","length":11335,"modificationTime":1434242160307,"owner":"michaeljones","pathSuffix":"README.md","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242172845,"blockSize":134217728,"childrenNum":0,"fileId":18690,"group":"supergroup","length":0,"modificationTime":1434242172851,"owner":"michaeljones","pathSuffix":"apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434240295990,"blockSize":134217728,"childrenNum":0,"fileId":18639,"group":"supergroup","length":0,"modificationTime":1434240295996,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242159644,"blockSize":134217728,"childrenNum":0,"fileId":18663,"group":"supergroup","length":0,"modificationTime":1434242159652,"owner":"michaeljones","pathSuffix":"hello-apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434091626279,"blockSize":134217728,"childrenNum":0,"fileId":18298,"group":"supergroup","length":0,"modificationTime":1434091626286,"owner":"michaeljones","pathSuffix":"hello-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242159578,"blockSize":134217728,"childrenNum":0,"fileId":18662,"group":"supergroup","length":0,"modificationTime":1434242159585,"owner":"michaeljones","pathSuffix":"hello-jersey-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434240296439,"blockSize":134217728,"childrenNum":0,"fileId":18641,"group":"supergroup","length":19574,"modificationTime":1434240296468,"owner":"michaeljones","pathSuffix":"hello.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242160010,"blockSize":134217728,"childrenNum":0,"fileId":18665,"group":"supergroup","length":3678856,"modificationTime":1434242160145,"owner":"michaeljones","pathSuffix":"hello.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242164264,"blockSize":134217728,"childrenNum":0,"fileId":18668,"group":"supergroup","length":20,"modificationTime":1434242164753,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242159867,"blockSize":134217728,"childrenNum":0,"fileId":18664,"group":"supergroup","length":17984,"modificationTime":1434242159894,"owner":"michaeljones","pathSuffix":"hellohadoop.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242160987,"blockSize":134217728,"childrenNum":0,"fileId":18667,"group":"supergroup","length":3644,"modificationTime":1434242161016,"owner":"michaeljones","pathSuffix":"nbactions.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242172891,"blockSize":134217728,"childrenNum":0,"fileId":18691,"group":"supergroup","length":2134,"modificationTime":1434242172913,"owner":"michaeljones","pathSuffix":"pom.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242165542,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18676,"group":"supergroup","length":0,"modificationTime":1434242169795,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18683,"group":"supergroup","length":0,"modificationTime":1434242171819,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18669,"group":"supergroup","length":0,"modificationTime":1434242168288,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey redirected to IPC: hdfs://localhost:9000/user/michaeljones/hello.log
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1434249238371,"blockSize":134217728,"childrenNum":0,"fileId":18716,"group":"supergroup","length":11335,"modificationTime":1434249238403,"owner":"michaeljones","pathSuffix":"README.md","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242172845,"blockSize":134217728,"childrenNum":0,"fileId":18690,"group":"supergroup","length":0,"modificationTime":1434242172851,"owner":"michaeljones","pathSuffix":"apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242173486,"blockSize":134217728,"childrenNum":0,"fileId":18692,"group":"supergroup","length":0,"modificationTime":1434242173493,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249237237,"blockSize":134217728,"childrenNum":0,"fileId":18713,"group":"supergroup","length":0,"modificationTime":1434249237244,"owner":"michaeljones","pathSuffix":"hello-apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434091626279,"blockSize":134217728,"childrenNum":0,"fileId":18298,"group":"supergroup","length":0,"modificationTime":1434091626286,"owner":"michaeljones","pathSuffix":"hello-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249237130,"blockSize":134217728,"childrenNum":0,"fileId":18712,"group":"supergroup","length":0,"modificationTime":1434249237142,"owner":"michaeljones","pathSuffix":"hello-jersey-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242173890,"blockSize":134217728,"childrenNum":0,"fileId":18694,"group":"supergroup","length":584846,"modificationTime":1434242173915,"owner":"michaeljones","pathSuffix":"hello.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249237945,"blockSize":134217728,"childrenNum":0,"fileId":18715,"group":"supergroup","length":3678856,"modificationTime":1434249238225,"owner":"michaeljones","pathSuffix":"hello.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242164264,"blockSize":134217728,"childrenNum":0,"fileId":18668,"group":"supergroup","length":20,"modificationTime":1434242164753,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249237796,"blockSize":134217728,"childrenNum":0,"fileId":18714,"group":"supergroup","length":27615,"modificationTime":1434249237841,"owner":"michaeljones","pathSuffix":"hellohadoop.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249240018,"blockSize":134217728,"childrenNum":0,"fileId":18719,"group":"supergroup","length":102268,"modificationTime":1434249240060,"owner":"michaeljones","pathSuffix":"hellohadoop.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249240016,"blockSize":134217728,"childrenNum":0,"fileId":18718,"group":"supergroup","length":123003,"modificationTime":1434249240061,"owner":"michaeljones","pathSuffix":"hellohadoop.log.2015-06-13","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249239189,"blockSize":134217728,"childrenNum":0,"fileId":18717,"group":"supergroup","length":3644,"modificationTime":1434249239223,"owner":"michaeljones","pathSuffix":"nbactions.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242172891,"blockSize":134217728,"childrenNum":0,"fileId":18691,"group":"supergroup","length":2134,"modificationTime":1434242172913,"owner":"michaeljones","pathSuffix":"pom.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242165542,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18676,"group":"supergroup","length":0,"modificationTime":1434242169795,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18683,"group":"supergroup","length":0,"modificationTime":1434242171819,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18669,"group":"supergroup","length":0,"modificationTime":1434242168288,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey redirected to IPC: hdfs://localhost:9000/user/michaeljones/hello.log
+Get redirect location async: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/nbactions.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1434249238371,"blockSize":134217728,"childrenNum":0,"fileId":18716,"group":"supergroup","length":11335,"modificationTime":1434249238403,"owner":"michaeljones","pathSuffix":"README.md","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242172845,"blockSize":134217728,"childrenNum":0,"fileId":18690,"group":"supergroup","length":0,"modificationTime":1434242172851,"owner":"michaeljones","pathSuffix":"apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249287104,"blockSize":134217728,"childrenNum":0,"fileId":18720,"group":"supergroup","length":0,"modificationTime":1434249287112,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249237237,"blockSize":134217728,"childrenNum":0,"fileId":18713,"group":"supergroup","length":0,"modificationTime":1434249237244,"owner":"michaeljones","pathSuffix":"hello-apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434091626279,"blockSize":134217728,"childrenNum":0,"fileId":18298,"group":"supergroup","length":0,"modificationTime":1434091626286,"owner":"michaeljones","pathSuffix":"hello-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249237130,"blockSize":134217728,"childrenNum":0,"fileId":18712,"group":"supergroup","length":0,"modificationTime":1434249237142,"owner":"michaeljones","pathSuffix":"hello-jersey-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249287792,"blockSize":134217728,"childrenNum":0,"fileId":18722,"group":"supergroup","length":748093,"modificationTime":1434249287826,"owner":"michaeljones","pathSuffix":"hello.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249237945,"blockSize":134217728,"childrenNum":0,"fileId":18715,"group":"supergroup","length":3678856,"modificationTime":1434249238225,"owner":"michaeljones","pathSuffix":"hello.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242164264,"blockSize":134217728,"childrenNum":0,"fileId":18668,"group":"supergroup","length":20,"modificationTime":1434242164753,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249237796,"blockSize":134217728,"childrenNum":0,"fileId":18714,"group":"supergroup","length":27615,"modificationTime":1434249237841,"owner":"michaeljones","pathSuffix":"hellohadoop.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249240018,"blockSize":134217728,"childrenNum":0,"fileId":18719,"group":"supergroup","length":102268,"modificationTime":1434249240060,"owner":"michaeljones","pathSuffix":"hellohadoop.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249240016,"blockSize":134217728,"childrenNum":0,"fileId":18718,"group":"supergroup","length":123003,"modificationTime":1434249240061,"owner":"michaeljones","pathSuffix":"hellohadoop.log.2015-06-13","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434249288621,"blockSize":134217728,"childrenNum":0,"fileId":18723,"group":"supergroup","length":3644,"modificationTime":1434249288654,"owner":"michaeljones","pathSuffix":"nbactions.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242172891,"blockSize":134217728,"childrenNum":0,"fileId":18691,"group":"supergroup","length":2134,"modificationTime":1434242172913,"owner":"michaeljones","pathSuffix":"pom.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242165542,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18676,"group":"supergroup","length":0,"modificationTime":1434242169795,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18683,"group":"supergroup","length":0,"modificationTime":1434242171819,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18669,"group":"supergroup","length":0,"modificationTime":1434242168288,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey redirected to IPC: hdfs://localhost:9000/user/michaeljones/hello.log
+Get redirect location async: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/nbactions.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+testUploadFileAsync: redirect: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/nbactions.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+testUploadFileAsync: redirect: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/nbactions.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+testUploadFileAsync: redirect: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/nbactions.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+testMain
+RunJobAsync
+RunJobAnalysisAsync
+IntSumCombinerAnalyser-Bye[1]
+IntSumCombinerAnalyser-Goodbye[1]
+IntSumCombinerAnalyser-Hadoop[1,1]
+IntSumCombinerAnalyser-Hello[1,1]
+IntSumCombinerAnalyser-World[1,1]
+IntSumReducerAnalyser-Bye[1]
+IntSumReducerAnalyser-Goodbye[1]
+IntSumReducerAnalyser-Hadoop[2]
+IntSumReducerAnalyser-Hello[2]
+IntSumReducerAnalyser-World[2]
+Apache client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1434253163334,"blockSize":134217728,"childrenNum":0,"fileId":18748,"group":"supergroup","length":11335,"modificationTime":1434253163364,"owner":"michaeljones","pathSuffix":"README.md","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242172845,"blockSize":134217728,"childrenNum":0,"fileId":18690,"group":"supergroup","length":0,"modificationTime":1434242172851,"owner":"michaeljones","pathSuffix":"apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434250345392,"blockSize":134217728,"childrenNum":0,"fileId":18724,"group":"supergroup","length":0,"modificationTime":1434250345400,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253162567,"blockSize":134217728,"childrenNum":0,"fileId":18745,"group":"supergroup","length":0,"modificationTime":1434253162578,"owner":"michaeljones","pathSuffix":"hello-apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434091626279,"blockSize":134217728,"childrenNum":0,"fileId":18298,"group":"supergroup","length":0,"modificationTime":1434091626286,"owner":"michaeljones","pathSuffix":"hello-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253162454,"blockSize":134217728,"childrenNum":0,"fileId":18744,"group":"supergroup","length":0,"modificationTime":1434253162462,"owner":"michaeljones","pathSuffix":"hello-jersey-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434250345962,"blockSize":134217728,"childrenNum":0,"fileId":18726,"group":"supergroup","length":753882,"modificationTime":1434250346002,"owner":"michaeljones","pathSuffix":"hello.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253163033,"blockSize":134217728,"childrenNum":0,"fileId":18747,"group":"supergroup","length":3678856,"modificationTime":1434253163193,"owner":"michaeljones","pathSuffix":"hello.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253167917,"blockSize":134217728,"childrenNum":0,"fileId":18752,"group":"supergroup","length":20,"modificationTime":1434253168439,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253162853,"blockSize":134217728,"childrenNum":0,"fileId":18746,"group":"supergroup","length":38315,"modificationTime":1434253162930,"owner":"michaeljones","pathSuffix":"hellohadoop.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253164356,"blockSize":134217728,"childrenNum":0,"fileId":18750,"group":"supergroup","length":102268,"modificationTime":1434253164403,"owner":"michaeljones","pathSuffix":"hellohadoop.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253164359,"blockSize":134217728,"childrenNum":0,"fileId":18751,"group":"supergroup","length":102268,"modificationTime":1434253164408,"owner":"michaeljones","pathSuffix":"hellohadoop.log.2015-06-13","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253163937,"blockSize":134217728,"childrenNum":0,"fileId":18749,"group":"supergroup","length":3644,"modificationTime":1434253163960,"owner":"michaeljones","pathSuffix":"nbactions.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434242172891,"blockSize":134217728,"childrenNum":0,"fileId":18691,"group":"supergroup","length":2134,"modificationTime":1434242172913,"owner":"michaeljones","pathSuffix":"pom.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253169122,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18760,"group":"supergroup","length":0,"modificationTime":1434253172670,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18767,"group":"supergroup","length":0,"modificationTime":1434253174376,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18753,"group":"supergroup","length":0,"modificationTime":1434253171258,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+PUT file redirect: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/apache-empty.txt?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+PUT file redirect: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/pom.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+Jersey client testGetStringContent
+{"FileStatuses":{"FileStatus":[
+{"accessTime":1434253163334,"blockSize":134217728,"childrenNum":0,"fileId":18748,"group":"supergroup","length":11335,"modificationTime":1434253163364,"owner":"michaeljones","pathSuffix":"README.md","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253175397,"blockSize":134217728,"childrenNum":0,"fileId":18774,"group":"supergroup","length":0,"modificationTime":1434253175405,"owner":"michaeljones","pathSuffix":"apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434250345392,"blockSize":134217728,"childrenNum":0,"fileId":18724,"group":"supergroup","length":0,"modificationTime":1434250345400,"owner":"michaeljones","pathSuffix":"empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253162567,"blockSize":134217728,"childrenNum":0,"fileId":18745,"group":"supergroup","length":0,"modificationTime":1434253162578,"owner":"michaeljones","pathSuffix":"hello-apache-empty.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434091626279,"blockSize":134217728,"childrenNum":0,"fileId":18298,"group":"supergroup","length":0,"modificationTime":1434091626286,"owner":"michaeljones","pathSuffix":"hello-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253162454,"blockSize":134217728,"childrenNum":0,"fileId":18744,"group":"supergroup","length":0,"modificationTime":1434253162462,"owner":"michaeljones","pathSuffix":"hello-jersey-emtpy.txt","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434250345962,"blockSize":134217728,"childrenNum":0,"fileId":18726,"group":"supergroup","length":753882,"modificationTime":1434250346002,"owner":"michaeljones","pathSuffix":"hello.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253163033,"blockSize":134217728,"childrenNum":0,"fileId":18747,"group":"supergroup","length":3678856,"modificationTime":1434253163193,"owner":"michaeljones","pathSuffix":"hello.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253167917,"blockSize":134217728,"childrenNum":0,"fileId":18752,"group":"supergroup","length":20,"modificationTime":1434253168439,"owner":"michaeljones","pathSuffix":"hello.txt","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253162853,"blockSize":134217728,"childrenNum":0,"fileId":18746,"group":"supergroup","length":38315,"modificationTime":1434253162930,"owner":"michaeljones","pathSuffix":"hellohadoop.log","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253164356,"blockSize":134217728,"childrenNum":0,"fileId":18750,"group":"supergroup","length":102268,"modificationTime":1434253164403,"owner":"michaeljones","pathSuffix":"hellohadoop.log.2015-06-12","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253164359,"blockSize":134217728,"childrenNum":0,"fileId":18751,"group":"supergroup","length":102268,"modificationTime":1434253164408,"owner":"michaeljones","pathSuffix":"hellohadoop.log.2015-06-13","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253163937,"blockSize":134217728,"childrenNum":0,"fileId":18749,"group":"supergroup","length":3644,"modificationTime":1434253163960,"owner":"michaeljones","pathSuffix":"nbactions.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253175494,"blockSize":134217728,"childrenNum":0,"fileId":18775,"group":"supergroup","length":2134,"modificationTime":1434253175528,"owner":"michaeljones","pathSuffix":"pom.xml","permission":"755","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":1434253169122,"blockSize":134217728,"childrenNum":0,"fileId":16388,"group":"supergroup","length":50,"modificationTime":1433119638967,"owner":"michaeljones","pathSuffix":"wcInput","permission":"644","replication":1,"storagePolicy":0,"type":"FILE"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18760,"group":"supergroup","length":0,"modificationTime":1434253172670,"owner":"michaeljones","pathSuffix":"wcOutput","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18767,"group":"supergroup","length":0,"modificationTime":1434253174376,"owner":"michaeljones","pathSuffix":"wcOutputAnalysis","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":18753,"group":"supergroup","length":0,"modificationTime":1434253171258,"owner":"michaeljones","pathSuffix":"wcOutputMain","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+]}}
+
+Jersey redirected to IPC: hdfs://localhost:9000/user/michaeljones/hello.log
+Get redirect location async: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/nbactions.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true
+testUploadFileAsync: redirect: http://michaels-air.bigpond:50075/webhdfs/v1/user/michaeljones/nbactions.xml?op=CREATE&user.name=michaeljones&namenoderpcaddress=localhost:9000&overwrite=true

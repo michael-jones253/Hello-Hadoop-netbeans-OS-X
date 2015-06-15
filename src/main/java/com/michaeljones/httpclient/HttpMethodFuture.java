@@ -6,7 +6,7 @@
 package com.michaeljones.httpclient;
 
 /**
- *
+ * Provide a common HTTP method future result interface to jersey or apache implementations.
  * @author michaeljones
  */
 public interface HttpMethodFuture {

@@ -138,7 +138,7 @@ public class HadoopHdfsRestClientTest {
         System.out.println("UploadFile");
 
         String remoteRelativePath = "hellohadoop.log";
-        String localPath = "hellohadoop.log";
+        String localPath = "logs/archive/hellohadoop.log";
         HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(NAMENODE_HOST, USERNAME);
 
         instance.UploadFile(remoteRelativePath, localPath);
@@ -151,7 +151,7 @@ public class HadoopHdfsRestClientTest {
         
         // Create a different file for ease of HDFS verification.
         remoteRelativePath = "hello.log.2015-06-12";
-        localPath = "hello.log.2015-06-12";
+        localPath = "logs/archive/hello.log.2015-06-12";
         
         instance.UploadFile(remoteRelativePath, localPath);
 
@@ -251,8 +251,11 @@ public class HadoopHdfsRestClientTest {
         System.out.println("ParallelUpload");
         List<Pair<String, String>> remoteLocalPairs = new ArrayList();
         // Upload some log files, destination file name same as source.
-        remoteLocalPairs.add(new Pair<>("hellohadoop.log.2015-06-12", "hellohadoop.log.2015-06-12"));
-        remoteLocalPairs.add(new Pair<>("hellohadoop.log.2015-06-13", "hellohadoop.log.2015-06-13"));
+        remoteLocalPairs.add(new Pair<>("hellohadoop.log.2015-06-09", "logs/archive/hellohadoop.log.2015-06-09"));
+        remoteLocalPairs.add(new Pair<>("hellohadoop.log.2015-06-10", "logs/archive/hellohadoop.log.2015-06-10"));
+        remoteLocalPairs.add(new Pair<>("hellohadoop.log.2015-06-11", "logs/archive/hellohadoop.log.2015-06-11"));
+        remoteLocalPairs.add(new Pair<>("hellohadoop.log.2015-06-12", "logs/archive/hellohadoop.log.2015-06-12"));
+        remoteLocalPairs.add(new Pair<>("hellohadoop.log.2015-06-13", "logs/archive/hellohadoop.log.2015-06-13"));
         
         HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(NAMENODE_HOST, USERNAME);
         instance.SetBigChunkSize();
