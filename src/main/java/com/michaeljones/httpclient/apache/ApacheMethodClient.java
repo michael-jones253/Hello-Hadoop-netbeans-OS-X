@@ -22,7 +22,9 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.net.URISyntaxException;
+import java.util.logging.Level;
 import org.apache.http.Header;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.InputStreamEntity;
@@ -114,7 +116,6 @@ public class ApacheMethodClient implements HttpMethodClient {
                List<Pair<String, String>> queryParams,
                StringBuilder redirect) throws FileNotFoundException {
         try {
-            HttpPut httpPut = new HttpPut();
             URIBuilder fileUri = new URIBuilder(url);
 
             if (queryParams != null) {
@@ -125,7 +126,7 @@ public class ApacheMethodClient implements HttpMethodClient {
                 }
             }
 
-            httpPut = new HttpPut(fileUri.build());
+            HttpPut httpPut = new HttpPut(fileUri.build());
             InputStream fileInStream = new FileInputStream(filePath);
             InputStreamEntity chunkedStream = new InputStreamEntity(
                     fileInStream, -1, ContentType.APPLICATION_OCTET_STREAM);
@@ -151,6 +152,28 @@ public class ApacheMethodClient implements HttpMethodClient {
             }
         } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException("Apache method putQuery: " + ex.getMessage());
+        }
+    }
+    
+    @Override
+    public int DeleteFile(String url, List<Pair<String, String>> queryParams) {
+        try {
+            URIBuilder fileUri = new URIBuilder(url);
+
+            if (queryParams != null) {
+                // Query params are optional. In the case of a redirect the url will contain
+                // all the params.
+                for (Pair<String, String> queryParam : queryParams) {
+                    fileUri.addParameter(queryParam.getFirst(), queryParam.getSecond());
+                }
+            }
+
+            HttpDelete httpDel = new HttpDelete(fileUri.build());
+            CloseableHttpResponse response = clientImpl.execute(httpDel);
+            return response.getStatusLine().getStatusCode();
+
+        } catch (URISyntaxException | IOException ex) {
+            throw new RuntimeException("Apache method deleteQuery: " + ex.getMessage());
         }
     }
 

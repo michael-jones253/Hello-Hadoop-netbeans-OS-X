@@ -131,7 +131,19 @@ public class JerseyMethodClient implements HttpMethodClient {
         // This implementation does not append to the redirect parameter.
         return response.getStatus();
     }
-
+    
+    @Override
+    public int DeleteFile(String url, List<Pair<String, String>> queryParams) {
+        WebResource fileResource = jerseyImpl.resource(url);
+        for (Pair<String, String> queryParam : queryParams) {
+            fileResource = fileResource.queryParam(queryParam.getFirst(), queryParam.getSecond());
+        }
+        
+        ClientResponse response = fileResource.delete(ClientResponse.class);
+        
+        return response.getStatus();
+    }
+    
     @Override
     public HttpMethodFuture GetRedirectLocationAsync(String url, String filePath, List<Pair<String, String>> queryParams) throws FileNotFoundException {
         AsyncWebResource fileResource = jerseyImpl.asyncResource(url);

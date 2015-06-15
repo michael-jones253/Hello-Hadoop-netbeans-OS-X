@@ -60,7 +60,7 @@ public class HadoopHdfsRestClient {
             // %1 nameNodeHost, %2 username %3 resource.
             String uri = String.format(BASIC_URL_FORMAT, nameNodeHost, username, remoteRelativePath);
             List<Pair<String, String>> queryParams = new ArrayList();
-            queryParams.add(new Pair<>("user.name","michaeljones"));
+            queryParams.add(new Pair<>("user.name",username));
             queryParams.add(new Pair<>("op","LISTSTATUS"));
             
             String content = restImpl.GetStringContent(uri, queryParams);
@@ -92,7 +92,7 @@ public class HadoopHdfsRestClient {
         // %1 nameNodeHost, %2 username %3 resource.
         String uri = String.format(BASIC_URL_FORMAT, nameNodeHost, username, remoteRelativePath);
         List<Pair<String, String>> queryParams = new ArrayList();
-        queryParams.add(new Pair<>("user.name","michaeljones"));
+        queryParams.add(new Pair<>("user.name",username));
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
         
@@ -234,7 +234,7 @@ public class HadoopHdfsRestClient {
         // %1 nameNodeHost, %2 username %3 resource.
         String uri = String.format(BASIC_URL_FORMAT, nameNodeHost, username, remoteRelativePath);
         List<Pair<String, String>> queryParams = new ArrayList();
-        queryParams.add(new Pair<>("user.name","michaeljones"));
+        queryParams.add(new Pair<>("user.name",username));
         queryParams.add(new Pair<>("op","CREATE"));
         queryParams.add(new Pair<>("overwrite","true"));
         
@@ -263,5 +263,21 @@ public class HadoopHdfsRestClient {
     
     public void SetBigChunkSize() {
         restImpl.SetBigChunkSize();
+    }
+
+    public void DeleteFile(String remoteRelativePath) {
+        // %1 nameNodeHost, %2 username %3 resource.
+        String uri = String.format(BASIC_URL_FORMAT, nameNodeHost, username, remoteRelativePath);
+        List<Pair<String, String>> queryParams = new ArrayList();
+        queryParams.add(new Pair<>("user.name",username));
+        queryParams.add(new Pair<>("op","DELETE"));
+        queryParams.add(new Pair<>("overwrite","true"));
+        
+        int httpStatusCode = restImpl.DeleteFile(uri, queryParams);
+        if (httpStatusCode != 200) {
+            String errMsg = "Hadoop delete file unexpected status: " + remoteRelativePath + " : " + httpStatusCode;
+            LOGGER.error(errMsg);
+            throw new RuntimeException(errMsg);
+        }
     }
 }

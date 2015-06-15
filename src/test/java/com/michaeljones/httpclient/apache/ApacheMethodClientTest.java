@@ -6,6 +6,7 @@
 package com.michaeljones.httpclient.apache;
 
 import com.michaeljones.hellohadoopworldmaven.HelloHdfsTest;
+import com.michaeljones.httpclient.HttpMethodFuture;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.math3.util.Pair;
@@ -147,6 +148,28 @@ public class ApacheMethodClientTest {
         
         // If it didn't throw then consider passed.
         assertTrue(true);
+    }
+
+    /**
+     * Test of DeleteFile method, of class ApacheMethodClient.
+     */
+    @Test
+    public void testDeleteFile() {
+        System.out.println("DeleteFile");
+        String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/pom.xml";
+        List<Pair<String, String>> queryParams = new ArrayList();
+        queryParams.add(new Pair<>("user.name","michaeljones"));
+        queryParams.add(new Pair<>("op","DELETE"));
+        queryParams.add(new Pair<>("recursive","true"));
+
+        ApacheMethodClient instance = new ApacheMethodClient();
+        int expOkResult = 200;
+        int result = instance.DeleteFile(url, queryParams);
+        assertEquals(expOkResult, result);
+
+        // Idempotent.
+        result = instance.DeleteFile(url, queryParams);
+        assertEquals(expOkResult, result);
     }
     
 }

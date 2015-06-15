@@ -33,6 +33,8 @@ public interface HttpMethodClient {
     HttpMethodFuture PutFileAsync(String redirectUrl, String filePath) throws FileNotFoundException;
 
     void SetBigChunkSize();
+    
+    int DeleteFile(String url, List<Pair<String, String>> queryParams);
 
     void Close();
 

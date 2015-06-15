@@ -265,5 +265,22 @@ public class HadoopHdfsRestClientTest {
         // If we didn't throw assume pass.
         assertTrue(true);    
     }
+
+    /**
+     * Test of DeleteFile method, of class HadoopHdfsRestClient.
+     */
+    @Test
+    public void testDeleteFile() {
+        System.out.println("DeleteFile");
+        String remoteRelativePath = "hellohadoop.log";
+        HadoopHdfsRestClient instance = HadoopHdfsRestClient.JerseyClientFactory(NAMENODE_HOST, USERNAME);
+        instance.DeleteFile(remoteRelativePath);
+        
+        instance = HadoopHdfsRestClient.ApacheClientFactory(NAMENODE_HOST, USERNAME);
+        instance.DeleteFile(remoteRelativePath);
+        
+        // If we didn't throw assume pass.
+        assertTrue(true);    
+    }
     
 }

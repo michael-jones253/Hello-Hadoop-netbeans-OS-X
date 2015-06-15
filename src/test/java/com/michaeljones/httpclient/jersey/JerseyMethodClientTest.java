@@ -238,5 +238,27 @@ public class JerseyMethodClientTest {
         assertTrue(redirectLocation.contains("op=CREATE"));
         LOGGER.info("Get redirect location async: " + redirectLocation);
     }
+
+    /**
+     * Test of DeleteFile method, of class JerseyMethodClient.
+     */
+    @Test
+    public void testDeleteFile() {
+        System.out.println("DeleteFile");
+        String url = "http://localhost:50070/webhdfs/v1/user/michaeljones/nbactions.xml";
+        List<Pair<String, String>> queryParams = new ArrayList();
+        queryParams.add(new Pair<>("user.name","michaeljones"));
+        queryParams.add(new Pair<>("op","DELETE"));
+        queryParams.add(new Pair<>("recursive","true"));
+
+        JerseyMethodClient instance = new JerseyMethodClient();
+        int expOkResult = 200;
+        int result = instance.DeleteFile(url, queryParams);
+        assertEquals(expOkResult, result);
+        
+        // Idempotent.
+        result = instance.DeleteFile(url, queryParams);
+        assertEquals(expOkResult, result);
+    }
     
 }
