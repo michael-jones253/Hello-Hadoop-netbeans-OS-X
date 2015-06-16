@@ -16,11 +16,12 @@ This is work in progress and so far the following functionality is demonstrated:
 The following development principles:
 
 1. Layered application code for maximum re-use and ease of test driven development. The client I wrote uses an interface which has allowed me to provide both a Jersey HTTP client implementation and an Apache HTTP client implementation for comparison between the two toolkits.
-2. Test driven development.
+2. I tried to make the code easy to read.
+3. Test driven development.
 
 ## The most interesting code
 
-This is the concurrent (parallel on a multi-homed cluster) file upload from some storage server to the Hadoop data nodes. This code is working under unit test in a pseudo distributed configuration.
+This is the REST concurrent (parallel on a multi-homed cluster) file upload from some storage server to the Hadoop data nodes. This code is working under unit test in a pseudo distributed configuration.
 
 The easiest way to follow this code is to start with the unit test file HadoopHdfsRestClientTest.java and see how the following method is called. Then follow the layers through the interface down into the jersey client implementation.
 
@@ -29,6 +30,10 @@ Uploading to Hadoop via Web REST is a two stage process where first a PUT call t
 In the situation where the source files are going out on a single network connection one might wonder if anything can be gained from a concurrent file upload. However theoretically there is something to be gained, because some TCP file transfer protocols achieve speed by splitting files over multiple socket connections. So in the situation where we have multiple HTTP connections (one for each file), then we are achieving something similar.
 
 The reason why multiple connections can be faster than one is because multiple connections achieve a quicker aggregate ramp up time during the TCP "slow start". On a good connection the gains are limited, because there will be only one ramp up at the start. However, across the internet under congestion slow starts may occur repeatedly during the duration of a connection. Another reason is that if some packet loss occurs, it is possible that the loss might only hit one connection in which case only one connection is throttled from the TCP congestion control.
+
+The unit test for the above is in src/test/java/com/michaeljones/hellohadoop/restclient/HadoopHdfsRestClientTest.java.
+
+The following excerpt is from /Users/michaeljones/NetBeansProjects/HelloHadoopWorldMaven/src/main/java/com/michaeljones/hellohadoop/restclient/HadoopHdfsRestClient.java
 
 <pre><code>
     public void ParallelUpload(List<Pair<String, String>> remoteLocalPairs) {
@@ -75,6 +80,17 @@ The reason why multiple connections can be faster than one is because multiple c
         }
     }
 </pre></code>
+
+### Further discussions on concurrent transfer speed
+I have made a call to set the HTTP chunk size to 1MB, however this is not an attempt to gain speed by reducing the payload overhead for the chunks. The payload overhead is quite small (only the size of the chunk) and there is no handshake for each chunk to slow things down. Instead the reason for doing this is the hope that the implementation uses a correspondingly large buffer size when writing the socket. The apache implementation hints that chunk size and buffer size are related, but I haven't verified this.
+
+Having a large buffer size to write the socket is where transfer speed gains are made. If the socket read/write buffers are non-optimal then that is even more reason to upload over multiple TCP connections - several concurrent connections with a non-optimal implementation will be able to "fill the pipe".
+
+### Design issues that need attending to.
+
+1. I haven't considered timeouts yet. We must never block forever in the situation where the server has stopped reading the socket.
+2. This demo program does not consider partial failure where one file fails to upload, it will give up on first error. This is not difficult to attend to, but needs some thought regarding what to do in this situation.
+3. A limit on how many concurrent connections we allow for file transfer. There is a research paper on this.
 
 ## Getting started
 
