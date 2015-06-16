@@ -12,6 +12,8 @@ This is work in progress and so far the following functionality is demonstrated:
 2. Uploading of files to the HDFS by implementing a Web REST API client.
 3. Async file upload (at time of writing only Jersey back end implemented).
 4. Parallel/concurrent file upload of multiple files potentially to multiple data nodes.
+ 
+All my unit tests demonstrating the above are running successfully on a pseudo-distributed Hadoop setup.
 
 The following development principles:
 
