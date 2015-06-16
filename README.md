@@ -37,20 +37,20 @@ The unit test for the above is in src/test/java/com/michaeljones/hellohadoop/res
 
 The following excerpt is from /Users/michaeljones/NetBeansProjects/HelloHadoopWorldMaven/src/main/java/com/michaeljones/hellohadoop/restclient/HadoopHdfsRestClient.java
 
-
     public void ParallelUpload(List<Pair<String, String>> remoteLocalPairs) {
         // First of all do a concurrent gathering of the redirect locations from the name node.
         // Does this help if all calls are going to the same name node?
         // Answer: a little, because we are performing multiple round trips concurrently. Packets
-        // are of course interleaved, but we are not individually blocking on each round trip interval.
+        // are interleaved, but we are not individually blocking on each round trip interval.
         List<HttpMethodFuture> redirectFutures = new ArrayList();
         for (Pair<String, String> remoteLocal : remoteLocalPairs) {
             HttpMethodFuture redirect = GetRedirectLocationAsync(remoteLocal.getFirst(), remoteLocal.getSecond());
             redirectFutures.add(redirect);
         }
 
-        // Now retrieve the redirect locations from the futures and make a new list
-        // of redirect, local path pairs. This will take as long as the longest redirect retrieval.
+        // Now wait for all the redirect locations to arrive, by getting the result from the futures.
+        // Make a new list of redirect location, local path pairs.
+        // This will take as long as the longest redirect retrieval.
         List<Pair<String, String>> redirectLocalPairs = new ArrayList();
         for (HttpMethodFuture redirect : redirectFutures) {
             // This may block depending on whether any of the preceding futures took longer or not.
@@ -62,7 +62,7 @@ The following excerpt is from /Users/michaeljones/NetBeansProjects/HelloHadoopWo
         List<HttpMethodFuture> uploadFutures = new ArrayList();
 
         // The final step is to perform a concurrent/parallel upload to the data nodes.
-        // In a multi-homed cluster these could be going out on separate interfaces.
+        // In a multi-homed cluster these could be going out on separate network interfaces.
         // The bottleneck would then be the file storage. If some source paths were coming from
         // different file servers then we would really win with this strategy.
         for (Pair<String, String> redirectLocal : redirectLocalPairs) {
@@ -70,8 +70,8 @@ The following excerpt is from /Users/michaeljones/NetBeansProjects/HelloHadoopWo
             uploadFutures.add(future);
         }
         
-        // Now wait for all uploads to complete. This will take as long as the
-        // longest upload.
+        // Now wait for all uploads to complete, by getting the result from each future.
+        // This will take as long as the longest upload.
         for (HttpMethodFuture upload : uploadFutures) {
             // This may block depending on whether any previous futures took longer or not.
             int httpStatusCode = upload.GetHttpStatusCode();
