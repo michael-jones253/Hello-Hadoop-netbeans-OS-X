@@ -37,7 +37,7 @@ The unit test for the above is in src/test/java/com/michaeljones/hellohadoop/res
 
 The following excerpt is from /Users/michaeljones/NetBeansProjects/HelloHadoopWorldMaven/src/main/java/com/michaeljones/hellohadoop/restclient/HadoopHdfsRestClient.java
 
-<pre><code>
+
     public void ParallelUpload(List<Pair<String, String>> remoteLocalPairs) {
         // First of all do a concurrent gathering of the redirect locations from the name node.
         // Does this help if all calls are going to the same name node?
@@ -81,7 +81,7 @@ The following excerpt is from /Users/michaeljones/NetBeansProjects/HelloHadoopWo
             }
         }
     }
-</pre></code>
+
 
 ### Further discussions on concurrent transfer speed
 I have made a call to set the HTTP chunk size to 1MB, however this is not an attempt to gain speed by reducing the payload overhead for the chunks. The payload overhead is quite small (only the size of the chunk) and there is no handshake for each chunk to slow things down. Instead the reason for doing this is the hope that the implementation uses a correspondingly large buffer size when writing the socket. The apache implementation hints that chunk size and buffer size are related, but I haven't verified this.
